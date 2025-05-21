@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+import { NextRequest } from "next/server";
 
 const prisma = new PrismaClient();
 
@@ -50,17 +51,32 @@ export async function POST(request: Request) {
 
 // Adjust the path based on your project structure
 
-export async function GET({ pathname }) {
+export async function GET(
+  request: Request,
+  context: { params: { category: string } }
+) {
+  const categorySlug = context.params.category;
+
+  if (!categorySlug) {
+    return new Response("Category not found", { status: 400 });
+  }
+
   try {
-    // Fetch products from the database
     const products = await prisma.product.findMany({
       where: {
-        category: pathname,
+        slug: categorySlug, 
+      },
+      include: {
+        category: true,
       },
     });
 
-    // Return the product data in the response
-    return new Response(JSON.stringify(products), { status: 200 });
+    return new Response(JSON.stringify(products), {
+      status: 200,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
   } catch (error) {
     console.error("Error fetching products:", error);
     return new Response("Error fetching products", { status: 500 });
