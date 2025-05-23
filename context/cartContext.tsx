@@ -8,7 +8,7 @@ import React, {
 } from "react";
 
 type CartItem = {
-  id: string;
+  id: number;
   name: string;
   price: number;
   quantity: number;
@@ -22,9 +22,10 @@ type CartState = {
 
 type CartAction =
   | { type: "ADD_ITEM"; payload: CartItem }
-  | { type: "REMOVE_ITEM"; payload: string }
+  | { type: "REMOVE_ITEM"; payload: number }
   | { type: "CLEAR_CART" }
-  | { type: "SET_CART"; payload: CartItem[] };
+  | { type: "SET_CART"; payload: CartItem[] }
+  | { type: "UPDATE_ITEM_QUANTITY"; payload: { id: number; quantity: number } };
 
 const initialState: CartState = {
   items: [],
@@ -45,17 +46,16 @@ const CartContext = createContext<{
 const cartReducer = (state: CartState, action: CartAction): CartState => {
   switch (action.type) {
     case "ADD_ITEM":
-      const exists = state.items.find((item) => item.id === action.payload.id);
+      const exists = state.items.some((item) => item.id === action.payload.id);
+
       if (exists) {
-        return {
-          items: state.items.map((item) =>
-            item.id === action.payload.id
-              ? { ...item, quantity: item.quantity + action.payload.quantity }
-              : item
-          ),
-        };
+        // Do not add or update the existing item
+        return state;
+      } else {
+        // Add new product
+        return { items: [...state.items, action.payload] };
       }
-      return { items: [...state.items, action.payload] };
+
     case "REMOVE_ITEM":
       return {
         items: state.items.filter((item) => item.id !== action.payload),
@@ -64,6 +64,15 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
       return { items: [] };
     case "SET_CART":
       return { items: action.payload };
+    case "UPDATE_ITEM_QUANTITY":
+      return {
+        items: state.items.map((item) =>
+          item.id === action.payload.id
+            ? { ...item, quantity: action.payload.quantity }
+            : item
+        ),
+      };
+
     default:
       return state;
   }

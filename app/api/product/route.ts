@@ -3,27 +3,27 @@ import { NextRequest } from "next/server";
 
 const prisma = new PrismaClient();
 
-// Helper function to generate slug from name
+// Helper function to generate slug
 function generateSlug(name: string) {
   return name
     .toLowerCase()
-    .replace(/[^a-z0-9\s-]/g, "") // Remove special characters
+    .replace(/[^a-z0-9\s-]/g, "")
     .trim()
-    .replace(/\s+/g, "-"); // Replace spaces with hyphens
+    .replace(/\s+/g, "-");
 }
 
+// POST: Create a new product
 export async function POST(request: Request) {
   const body = await request.json();
 
   try {
-    const slug = generateSlug(body.name); // generate slug from name
-
-    const images = Array.isArray(body.image) ? body.image : [body.image]; // Wrap single image into an array if not already an array
+    const slug = generateSlug(body.name);
+    const images = Array.isArray(body.image) ? body.image : [body.image];
 
     const newProduct = await prisma.product.create({
       data: {
         name: body.name,
-        slug: slug,
+        slug,
         description: body.description,
         image: images,
         price: body.price,
@@ -33,54 +33,15 @@ export async function POST(request: Request) {
     });
 
     return new Response(JSON.stringify(newProduct), {
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       status: 201,
     });
   } catch (error) {
     console.error("Error creating product:", error);
     return new Response(JSON.stringify({ error: "Failed to create product" }), {
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       status: 500,
     });
   }
 }
 
-// Adjust the path based on your project structure
-
-export async function GET(
-  request: Request,
-  context: { params: { category: string } }
-) {
-  const categorySlug = context.params.category;
-
-  if (!categorySlug) {
-    return new Response("Category not found", { status: 400 });
-  }
-
-  try {
-    const products = await prisma.product.findMany({
-      where: {
-        slug: categorySlug, 
-      },
-      include: {
-        category: true,
-      },
-    });
-
-    return new Response(JSON.stringify(products), {
-      status: 200,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-  } catch (error) {
-    console.error("Error fetching products:", error);
-    return new Response("Error fetching products", { status: 500 });
-  } finally {
-    await prisma.$disconnect();
-  }
-}

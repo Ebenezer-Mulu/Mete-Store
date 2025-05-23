@@ -3,7 +3,8 @@ import { Button } from "@/components/components/ui/button";
 import { useCart } from "hooks/useCart";
 import React from "react";
 
-export interface ProducctCart {
+export interface ProductCart {
+  id: number;
   name: string;
   description: string;
   price: number;
@@ -11,19 +12,22 @@ export interface ProducctCart {
   image: any;
 }
 const AddToBag = ({
+  id,
   name,
   description,
   price,
   currency,
   image,
-}: ProducctCart) => {
+}: ProductCart) => {
   const { addItem, handleCartClick } = useCart();
   const product = {
+   id: id,
     name: name,
     description: description,
     price: price,
     currency: currency,
     image: image,
+    quantity:1
   };
   return (
     <Button
@@ -32,7 +36,7 @@ const AddToBag = ({
         addItem(product), handleCartClick();
       }}
     >
-      Add To Cart
+      Add To Cart 
     </Button>
   );
 };

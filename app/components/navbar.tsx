@@ -9,8 +9,8 @@ import { useCart } from "../../hooks/useCart";
 
 const links = [
   { name: "Home", href: "/" },
-  { name: "EyeGlasses", href: "/EyeGlasses" },
-  { name: "Watches", href: "/Watches" },
+  { name: "EyeGlasses", href: "/pages/SunGlasses" },
+  { name: "Watches", href: "/pages/Watches" },
 ];
 
 export default function NavBar() {

@@ -1,5 +1,6 @@
 import { Hero } from "./components/hero";
-import Newest from "./components/Newest";
+import Newest from "./components/items/Newest";
+import Sunglasses from "./components/items/sunglasses";
 import "./globals.css";
 
 export default function Home() {
@@ -7,6 +8,7 @@ export default function Home() {
     <div className="bg-white pb-6 sm:pb-8 lg:pb-">
       <Hero />
       <Newest />
+      <Sunglasses/>
     </div>
   );
 }

@@ -7,6 +7,8 @@ export const useCart = () => {
   const addItem = (item) => dispatch({ type: "ADD_ITEM", payload: item });
   const removeItem = (id) => dispatch({ type: "REMOVE_ITEM", payload: id });
   const clearCart = () => dispatch({ type: "CLEAR_CART" });
+  const updateItemQuantity = (id: number, quantity: number) =>
+    dispatch({ type: "UPDATE_ITEM_QUANTITY", payload: { id, quantity } });
 
   const total = state.items.reduce(
     (sum, item) => sum + item.price * item.quantity,
@@ -40,5 +42,6 @@ export const useCart = () => {
     shouldDisplayCart: isCartOpen,
     handleCartClick,
     toggleCart,
+    updateItemQuantity,
   };
 };

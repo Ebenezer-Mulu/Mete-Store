@@ -19,12 +19,17 @@ export async function generateStaticParams() {
 }
 
 interface ProductPageProps {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }
 
 export default async function ProductPage({ params }: ProductPageProps) {
+  // Await params here because params might be a Promise
+  const { slug } = await params;
+  const rating = Math.round((Math.random() * (4.9 - 4.3) + 4.3) * 10) / 10;
+  const numberOfRater = Math.floor(Math.random() * 41) + 60;
+
   const product: fullProduct | null = await prisma.product.findUnique({
-    where: { slug: params.slug },
+    where: { slug },
     select: {
       id: true,
       slug: true,
@@ -40,7 +45,6 @@ export default async function ProductPage({ params }: ProductPageProps) {
     notFound();
   }
 
-  // Ensure image is an array
   const images = Array.isArray(product.image) ? product.image : [product.image];
 
   return (
@@ -62,12 +66,12 @@ export default async function ProductPage({ params }: ProductPageProps) {
             </div>
             <div className="mb-6 flex items-center gap-3 md:mb-10">
               <Button className="rounded-full gap-x-2 bg-purple-300">
-                <span className="text-sm">4.2</span>
+                <span className="text-sm">{rating}</span>
                 <Star className="h-5 w-5 " />
               </Button>
 
               <span className="text-sm text-gray-500 transition duration-100">
-                56 Ratings
+                {numberOfRater} Ratings
               </span>
             </div>
 
@@ -88,6 +92,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
             </div>
             <div className="flex gap-2.5">
               <AddToBag
+                id={product.id}
                 currency="Birr"
                 description={product.description}
                 name={product.name}
@@ -95,7 +100,9 @@ export default async function ProductPage({ params }: ProductPageProps) {
                 price={product.price}
                 key={product.id}
               />
-              <Button className=" bg-red-400 text-white"><Link href='/checkout'>CheckOut Now</Link></Button>
+              <Button className="bg-red-400 text-white">
+                <Link href="../checkout">CheckOut Now</Link>
+              </Button>
             </div>
             <p className="mt-12 text-base text-gray-500 tracking-wide">
               {product.description}
