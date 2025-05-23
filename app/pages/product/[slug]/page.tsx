@@ -14,17 +14,17 @@ export async function generateStaticParams() {
   });
 
   return products.map((product) => ({
-    slug: product.slug,
+    slug: product.slug.toString(),
   }));
 }
 
 interface ProductPageProps {
-  params: Promise<{ slug: string }>;
+  params: { slug: string };
 }
 
 export default async function ProductPage({ params }: ProductPageProps) {
-  // Await params here because params might be a Promise
-  const { slug } = await params;
+  const { slug } = params;
+
   const rating = Math.round((Math.random() * (4.9 - 4.3) + 4.3) * 10) / 10;
   const numberOfRater = Math.floor(Math.random() * 41) + 60;
 
@@ -37,7 +37,12 @@ export default async function ProductPage({ params }: ProductPageProps) {
       description: true,
       name: true,
       image: true,
-      category: true,
+      category: {
+        select: {
+          id: true, // ✅ Add this line
+          name: true,
+        },
+      },
     },
   });
 
@@ -64,20 +69,20 @@ export default async function ProductPage({ params }: ProductPageProps) {
                 {product.name}
               </h2>
             </div>
+
             <div className="mb-6 flex items-center gap-3 md:mb-10">
               <Button className="rounded-full gap-x-2 bg-purple-300">
                 <span className="text-sm">{rating}</span>
-                <Star className="h-5 w-5 " />
+                <Star className="h-5 w-5" />
               </Button>
-
-              <span className="text-sm text-gray-500 transition duration-100">
+              <span className="text-sm text-gray-500">
                 {numberOfRater} Ratings
               </span>
             </div>
 
             <div className="mb-4">
               <div className="flex items-end gap-2">
-                <span className="text-xl font-bold text-gray-80 md:text-2xl">
+                <span className="text-xl font-bold text-gray-800 md:text-2xl">
                   {product.price} Birr
                 </span>
                 <span className="mb-0.5 text-red-500 line-through">
@@ -86,24 +91,27 @@ export default async function ProductPage({ params }: ProductPageProps) {
               </div>
               <span className="text-sm text-gray-500">Inclusive Shipping</span>
             </div>
+
             <div className="mb-6 flex items-center gap-2 text-gray-500">
               <Truck />
               <span className="text-sm">15 days shipping</span>
             </div>
+
             <div className="flex gap-2.5">
               <AddToBag
                 id={product.id}
                 currency="Birr"
                 description={product.description}
                 name={product.name}
-                image={product.image[0]}
+                image={images[0]}
                 price={product.price}
                 key={product.id}
               />
               <Button className="bg-red-400 text-white">
-                <Link href="../checkout">CheckOut Now</Link>
+                <Link href="/checkout">CheckOut Now</Link>
               </Button>
             </div>
+
             <p className="mt-12 text-base text-gray-500 tracking-wide">
               {product.description}
             </p>
