@@ -8,7 +8,7 @@ export default async function Newest() {
     orderBy: {
       createdAt: "desc",
     },
-    take: 8,
+    take: 4,
     include: {
       category: true,
     },

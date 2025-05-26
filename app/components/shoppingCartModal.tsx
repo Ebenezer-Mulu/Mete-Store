@@ -120,7 +120,7 @@ const ShoppingCartModal = () => {
                 onClick={() => toggleCart(false)}
                 className="w-full  bg-purple-400 hover:text-purple-100"
               >
-                <Link href="../checkout"> Checkout</Link>
+                <Link href="/pages/checkout"> Checkout</Link>
               </Button>
             </div>
             <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
@@ -130,7 +130,6 @@ const ShoppingCartModal = () => {
                   onClick={() => toggleCart(false)}
                   className="font-medium text-purple-800 hover:text-purple-400"
                 >
-                  {" "}
                   Continue Shopping
                 </button>
               </p>

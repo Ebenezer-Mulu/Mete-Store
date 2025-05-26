@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
+import { Button } from "@/components/components/ui/button";
 
 const Watches = async () => {
   const sunglasses = await prisma.product.findMany({
@@ -19,7 +20,7 @@ const Watches = async () => {
       <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
         <div className="flex justify-between items-center">
           <h2 className="text-2xl font-bold tracking-tight text-gray-900">
-             Watches
+            Watches
           </h2>
           <Link
             className="text-primary flex items-center gap-x-1"
@@ -53,6 +54,16 @@ const Watches = async () => {
             </div>
           ))}
         </div>
+      </div>
+      <div className="flex justify-center mt-6">
+        <Button className="bg-white hover:bg-purple-100  text-white px-6 py-2  shadow-lg ">
+          <Link
+            href="/pages/SunGlasses"
+            className="flex items-center gap-x-2 text-black"
+          >
+            View All
+          </Link>
+        </Button>
       </div>
     </div>
   );

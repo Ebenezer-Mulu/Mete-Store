@@ -1,8 +1,7 @@
 import prisma from "app/lib/prisma";
 import Link from "next/link";
-
 import Image from "next/image";
-import { ArrowRight } from "lucide-react";
+import { Button } from "@/components/components/ui/button";
 
 const SunGlasses = async () => {
   const sunglasses = await prisma.product.findMany({
@@ -21,12 +20,6 @@ const SunGlasses = async () => {
           <h2 className="text-2xl font-bold tracking-tight text-gray-900">
             SunGlasses
           </h2>
-          <Link
-            className="text-primary flex items-center gap-x-1"
-            href="/pages/SunGlasses"
-          >
-            See All <ArrowRight />
-          </Link>
         </div>
         <div className="mt-6 grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
           {sunglasses.map((product) => (
@@ -53,6 +46,16 @@ const SunGlasses = async () => {
             </div>
           ))}
         </div>
+      </div>
+      <div className="flex justify-center mt-6">
+        <Button className="bg-white hover:bg-purple-100  text-white px-6 py-2  shadow-lg ">
+          <Link
+            href="/pages/SunGlasses"
+            className="flex items-center gap-x-2 text-black"
+          >
+            View All
+          </Link>
+        </Button>
       </div>
     </div>
   );
