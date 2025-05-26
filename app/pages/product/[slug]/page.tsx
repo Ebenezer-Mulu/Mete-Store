@@ -8,25 +8,23 @@ import { Star, Truck } from "lucide-react";
 import AddToBag from "app/components/addToBag";
 import Link from "next/link";
 
+interface ProductPageProps {
+  params: { slug: string };
+}
+
+// This function tells Next.js which product pages to statically generate at build time
 export async function generateStaticParams() {
   const products = await prisma.product.findMany({
     select: { slug: true },
   });
 
   return products.map((product) => ({
-    slug: product.slug.toString(),
+    slug: product.slug,
   }));
-}
-
-interface ProductPageProps {
-  params: { slug: string };
 }
 
 export default async function ProductPage({ params }: ProductPageProps) {
   const { slug } = params;
-
-  const rating = Math.round((Math.random() * (4.9 - 4.3) + 4.3) * 10) / 10;
-  const numberOfRater = Math.floor(Math.random() * 41) + 60;
 
   const product: fullProduct | null = await prisma.product.findUnique({
     where: { slug },
@@ -39,7 +37,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
       image: true,
       category: {
         select: {
-          id: true, // ✅ Add this line
+          id: true,
           name: true,
         },
       },
@@ -49,6 +47,9 @@ export default async function ProductPage({ params }: ProductPageProps) {
   if (!product) {
     notFound();
   }
+
+  const rating = Math.round((Math.random() * (4.9 - 4.3) + 4.3) * 10) / 10;
+  const numberOfRater = Math.floor(Math.random() * 41) + 60;
 
   const images = Array.isArray(product.image) ? product.image : [product.image];
 

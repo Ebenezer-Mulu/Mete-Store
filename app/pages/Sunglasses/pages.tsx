@@ -2,7 +2,6 @@ import prisma from "app/lib/prisma";
 import Link from "next/link";
 
 import Image from "next/image";
-import { ArrowRight } from "lucide-react";
 
 const SunGlasses = async () => {
   const sunglasses = await prisma.product.findMany({

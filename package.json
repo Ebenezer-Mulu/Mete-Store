@@ -12,9 +12,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "next dev",
-    "build": "prisma generate && next build",
+    "build": "prisma generate && prisma migrate deploy && next build",
     "start": "next start",
-    "postinstall": ""
+    "postinstall": "prisma generate",
+    "seed": "node --loader ts-node/esm prisma/seed.ts"
   },
   "keywords": [],
   "author": "",
@@ -26,6 +27,7 @@
     "@radix-ui/react-slot": "^1.2.0",
     "@sanity/image-url": "^1.1.0",
     "@tailwindcss/postcss": "^4.1.7",
+    "@vercel/postgres": "^0.10.0",
     "class-variance-authority": "^0.7.1",
     "init": "^0.1.2",
     "js-cookie": "^3.0.5",
@@ -43,6 +45,7 @@
     "autoprefixer": "^10.4.21",
     "postcss": "^8.5.3",
     "prisma": "^6.6.0",
-    "typescript": "5.8.3"
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
   }
 }
