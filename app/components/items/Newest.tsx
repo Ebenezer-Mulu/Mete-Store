@@ -1,5 +1,3 @@
-
-
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -10,7 +8,7 @@ export default async function Newest() {
     orderBy: {
       createdAt: "desc",
     },
-    take: 4,
+    take: 8,
     include: {
       category: true,
     },

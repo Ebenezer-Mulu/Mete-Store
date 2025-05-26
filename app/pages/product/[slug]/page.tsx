@@ -109,7 +109,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
                 key={product.id}
               />
               <Button className="bg-red-400 text-white">
-                <Link href="/checkout">CheckOut Now</Link>
+                <Link href="/pages/checkout">CheckOut Now</Link>
               </Button>
             </div>
 

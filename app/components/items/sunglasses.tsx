@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 
-const Sunglasses = async () => {
+const SunGlasses = async () => {
   const sunglasses = await prisma.product.findMany({
     orderBy: {
       createdAt: "desc",
@@ -19,7 +19,7 @@ const Sunglasses = async () => {
       <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
         <div className="flex justify-between items-center">
           <h2 className="text-2xl font-bold tracking-tight text-gray-900">
-            Our SunGlasses 
+            Our SunGlasses
           </h2>
           <Link
             className="text-primary flex items-center gap-x-1"
@@ -58,4 +58,4 @@ const Sunglasses = async () => {
   );
 };
 
-export default Sunglasses;
+export default SunGlasses;

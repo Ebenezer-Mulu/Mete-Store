@@ -101,6 +101,35 @@ export async function POST(request: Request) {
 }
 
 
+
+
+
+export async function GET(
+  req: NextRequest,
+  { params }: { params: { category: string } }
+) {
+  const categoryName = params.category;
+
+  try {
+    const result = await sql`
+      SELECT p.*, c.name as category_name
+      FROM product p
+      JOIN category c ON p.category_id = c.id
+      WHERE c.name = ${categoryName}
+      ORDER BY p.created_at DESC;
+    `;
+
+    return new Response(JSON.stringify(result.rows), { status: 200 });
+  } catch (error) {
+    console.error("Error fetching products:", error);
+    return new Response("Failed to fetch products", { status: 500 });
+  }
+}
+
+
+
+
+
 // CREATE TABLE product (
 //   id SERIAL PRIMARY KEY,
 //   name TEXT NOT NULL,
