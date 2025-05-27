@@ -3,13 +3,23 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import "../globals.css";
-import { Button } from "../../@/components/ui/button";
-import { ShoppingBag } from "lucide-react";
+import { Button } from "@/components/components/ui/button";
+import { ShoppingBag, Menu } from "lucide-react";
 import { useCart } from "../../hooks/useCart";
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/components/ui/drawer";
 
 const links = [
   { name: "Home", href: "/" },
-  { name: "EyeGlasses", href: "/pages/SunGlasses" },
+  { name: "SunGlasses", href: "/pages/SunGlasses" },
   { name: "Watches", href: "/pages/Watches" },
 ];
 
@@ -18,39 +28,71 @@ export default function NavBar() {
   const { handleCartClick } = useCart();
 
   return (
-    <header className="mb-8 border-b">
-      <div className="flex items-center justify-between mx-auto max-w-2xl px-4 sm:px-4 lg:max-w-7xl">
-        <Link href="/">
-          <h1 className="text-2xl md:text-4xl font-bold">
-            Mete <span className="text-purple-700">Store</span>
-          </h1>
-        </Link>
-        <nav className="hidden gap-12 lg:flex 2xl:ml-16">
-          {links.map((link, idx) => (
-            <div key={idx}>
-              {pathname == link.href ? (
-                <Link
-                  href={link.href}
-                  className="text-lg font-semibold text-purple-700"
-                >
-                  {link.name}
-                </Link>
-              ) : (
-                <Link
-                  href={link.href}
-                  className="text-lg font-semibold text-grey-600 transition duration-100 hover:text-primary"
-                >
-                  {link.name}
-                </Link>
-              )}
-            </div>
-          ))}
-        </nav>
-        <div className="flex  ">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-white  shadow-sm">
+      <div className="relative flex items-center justify-between mx-auto max-w-2xl px-4 sm:px-4 lg:max-w-7xl w-full h-15 ">
+        <div className="z-10">
+          <Drawer direction="left">
+            <DrawerTrigger asChild>
+              <Button variant="ghost" size="icon">
+                <Menu />
+              </Button>
+            </DrawerTrigger>
+            <DrawerContent
+              className="fixed left-0 top-0 h-full w-3/4 lg:w-80 max-w-xs bg-white shadow-lg z-50 rounded-none"
+              style={{ animation: "slideInLeft 0.3s ease-out" }}
+            >
+              <DrawerHeader>
+                <DrawerTitle>
+                  <Link href="/">
+                    <h1 className="text-2xl md:text-4xl font-bold text-center">
+                      Mete <span className="text-purple-700">Store</span>
+                    </h1>
+                  </Link>
+                </DrawerTitle>
+                <DrawerDescription className="text-center text-gray-500">
+                  Where Style Meet's Fashion
+                </DrawerDescription>
+              </DrawerHeader>
+
+              <nav className="flex flex-col gap-4 p-4">
+                {links.map((link, idx) => (
+                  <DrawerClose asChild key={idx}>
+                    <Link
+                      href={link.href}
+                      className={`text-lg font-medium ml-2 rounded-sm p-1 ${
+                        pathname === link.href
+                          ? "text-purple-700"
+                          : "text-gray-600 hover:text-primary"
+                      }`}
+                    >
+                      {link.name}
+                    </Link>
+                  </DrawerClose>
+                ))}
+              </nav>
+
+              <DrawerFooter>
+                <DrawerClose asChild>
+                  <Button variant="outline">Close</Button>
+                </DrawerClose>
+              </DrawerFooter>
+            </DrawerContent>
+          </Drawer>
+        </div>
+
+        <div className="absolute left-1/2 transform -translate-x-1/2">
+          <Link href="/">
+            <h1 className="text-2xl md:text-4xl font-bold text-center">
+              Mete <span className="text-purple-700">Store</span>
+            </h1>
+          </Link>
+        </div>
+
+        <div className="z-10">
           <Button
             variant="outline"
             onClick={handleCartClick}
-            className="flex flex-col gap-y-1.5 h-5 w-5 justify-center sm:h-20 sm:w-20 md:h-20 md:w-20 rounded-none border-none "
+            className="flex flex-col gap-y-1.5 h-5 w-5 justify-center sm:h-20 sm:w-20 md:h-20 md:w-20 rounded-none border-none"
           >
             <ShoppingBag />
             <div className="hidden text-xs font-semibold text-gray-500 sm:block">

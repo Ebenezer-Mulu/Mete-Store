@@ -12,7 +12,7 @@ interface ProductPageProps {
   params: { slug: string };
 }
 
-// This function tells Next.js which product pages to statically generate at build time
+
 export async function generateStaticParams() {
   const products = await prisma.product.findMany({
     select: { slug: true },
@@ -54,7 +54,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
   const images = Array.isArray(product.image) ? product.image : [product.image];
 
   return (
-    <div className="bg-white">
+    <div className="bg-white mt-32">
       <div className="mx-auto max-w-screen-xl px-4 md:px-8">
         <div className="grid gap-8 md:grid-cols-2">
           <ImageGallery

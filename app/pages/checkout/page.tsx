@@ -7,13 +7,13 @@ import Link from "next/link";
 
 const Checkout = () => {
   return (
-    <div className=" md:flex-row justify-between items-start md:items-center bg-white p-6 rounded-md shadow max-w-6xl mx-auto my-8 space-y-6 md:space-y-0">
-      <div className="max-w-2xl ">
-        <h2 className="text-3xl font-bold text-gray-500 mb-4">
+    <div className=" mt-32 justify-between items-start md:items-center bg-white p-6 rounded-md shadow max-w-6xl mx-auto my-8 space-y-6 md:space-y-0">
+      <div className=" ">
+        <h2 className="text-3xl font-bold text-gray-500 mb-4 text-center">
           Checkout Verification Fee
         </h2>
-        <div className="flex flex-row items-start justify-between sm:flex-col gap-4">
-          <p className="text-gray-400 text-lg max-w-md">
+        <div className=" sm:flex-col gap-4">
+          <p className="text-gray-400 text-lg p-3 ">
             The Checkout Page is the final step in the purchase process, choose
             a payment method, enter the transaction number, and attach the
             payment screenshot on our Telegram. This page ensures a secure,
