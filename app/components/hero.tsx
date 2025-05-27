@@ -6,7 +6,7 @@ export const Hero = () => {
   return (
     <section className="mx-auto max-w-2xl px-4 sm:pb-6 lg:max-w-7xl lg:px-7 ">
       <div className="mb-8 justify-between md:mb-16">
-        <div className="mb-6  w-full  sm:mb-12 lg:mb-0 lg:pb-24 lg:pt-24">
+        <div className="mb-6  w-full mt-32 sm:mb-12 lg:mb-0 lg:pb-24 ">
           <h1 className=" mb-4 ml-8 text-4xl font-bold text-gray-600 sm:text-5xl md:mb-8 md:text-6xl text-center">
             Stylish Accessories For{" "}
             <span className="text-center">Everyone!</span>
