@@ -1,6 +1,6 @@
 const TermsOfService = () => {
   return (
-    <section className="max-w-4xl mx-auto px-6 py-12">
+    <section className="max-w-4xl mt-10 text-center mx-auto px-6 py-12">
       <h1 className="text-3xl font-bold mb-6 text-purple-700">Terms of Service</h1>
       <p className="text-gray-700 mb-4">
         Welcome to Mete Store! By using our website and services, you agree to the following terms:

@@ -24,7 +24,7 @@ export default function ProductList() {
     <div className="bg-white">
       <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
         <div className="flex justify-between items-center">
-          <h2 className="text-2xl font-bold tracking-tight text-gray-900">
+          <h2 className="text-2xl font-bold mt-4 tracking-tight text-gray-900">
             Products for {category}
           </h2>
         </div>
@@ -33,7 +33,7 @@ export default function ProductList() {
           {products.map((product: any) => (
             <div key={product.id} className="group relative">
               <Link href={`/pages/product/${product.slug}`}>
-                <div className="aspect-square w-full overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75 lg:h-80">
+                <div className="aspect-square w-full shadow-sm overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75 lg:h-80">
                   <Image
                     src={product.image[0]}
                     alt={product.name}
@@ -42,15 +42,14 @@ export default function ProductList() {
                     height={500}
                   />
                 </div>
-                <div className="mt-4 flex justify-between">
+                <div className="mt-4 flex flex-col ml-2 gap-2 justify-between">
                   <div>
-                    <h3 className="text-sm text-gray-700">{product.name}</h3>
-                    <p className="mt-1 text-sm text-gray-500">
-                      {product.category?.name}
-                    </p>
+                    <h3 className="text-sm text-gray-400">
+                      {product.name.split(" ").slice(0, 3).join(" ")}
+                    </h3>
                   </div>
-                  <p className="text-sm font-medium text-gray-900">
-                    {product.price} Birr
+                  <p className="text-sm font-bold text-gray-900">
+                    ETB {product.price} Birr
                   </p>
                 </div>
               </Link>
