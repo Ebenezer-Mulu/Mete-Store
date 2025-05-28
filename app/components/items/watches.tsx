@@ -17,13 +17,13 @@ const Watches = async () => {
   });
   return (
     <div className="bg-white">
-      <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
+      <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-6">
         <div className="flex justify-between items-center">
           <h2 className="text-2xl font-bold tracking-tight text-gray-900">
             Watches
           </h2>
         </div>
-        <div className="mt-6 grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+        <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-4">
           {sunglasses.map((product) => (
             <div key={product.id} className="group relative">
               <Link href={`/pages/product/${product.slug}`} passHref>
@@ -52,14 +52,12 @@ const Watches = async () => {
         </div>
       </div>
       <div className="flex justify-center mt-6">
-        <Button className="bg-white hover:bg-purple-100  text-white px-6 py-2  shadow-lg ">
-          <Link
-            href="/pages/SunGlasses"
-            className="flex items-center gap-x-2 text-black"
-          >
-            View All
-          </Link>
-        </Button>
+        <Link
+          href="/pages/SunGlasses"
+          className="inline-block border-2 border-black text-black hover:bg-purple-100 px-6 py-2 rounded"
+        >
+          View All
+        </Link>
       </div>
     </div>
   );

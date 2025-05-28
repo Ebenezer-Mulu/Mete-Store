@@ -16,6 +16,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/components/ui/drawer";
+import { IoClose } from "react-icons/io5";
 
 const links = [
   { name: "Home", href: "/" },
@@ -42,12 +43,25 @@ export default function NavBar() {
               style={{ animation: "slideInLeft 0.3s ease-out" }}
             >
               <DrawerHeader>
-                <DrawerTitle>
+                <DrawerTitle className="flex flex-row justify-between">
+                  <DrawerClose asChild>
+                    <IoClose />
+                  </DrawerClose>
                   <Link href="/">
                     <h1 className="text-2xl md:text-4xl font-bold text-center">
                       Mete <span className="text-purple-700">Store</span>
                     </h1>
                   </Link>
+                  <Button
+                    variant="outline"
+                    onClick={handleCartClick}
+                    className="flex flex-col gap-y-1.5 h-5 w-5 justify-center sm:h-20 sm:w-20 md:h-20 md:w-20 rounded-none border-none"
+                  >
+                    <ShoppingBag />
+                    <div className="hidden text-xs font-semibold text-gray-500 sm:block">
+                      Cart
+                    </div>
+                  </Button>
                 </DrawerTitle>
                 <DrawerDescription className="text-center text-gray-500">
                   Where Style Meet's Fashion
@@ -70,12 +84,6 @@ export default function NavBar() {
                   </DrawerClose>
                 ))}
               </nav>
-
-              <DrawerFooter>
-                <DrawerClose asChild>
-                  <Button variant="outline">Close</Button>
-                </DrawerClose>
-              </DrawerFooter>
             </DrawerContent>
           </Drawer>
         </div>

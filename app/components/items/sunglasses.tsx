@@ -1,9 +1,6 @@
 import prisma from "app/lib/prisma";
 import Link from "next/link";
-import Image from "next/image";
-import { Button } from "@/components/components/ui/button";
-
-const SunGlasses = async () => {
+import Image from "next/image";const SunGlasses = async () => {
   const sunglasses = await prisma.product.findMany({
     orderBy: {
       createdAt: "desc",
@@ -21,7 +18,7 @@ const SunGlasses = async () => {
             Sun Glasses
           </h2>
         </div>
-        <div className="mt-6 grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+        <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-6">
           {sunglasses.map((product) => (
             <div key={product.id} className="group relative">
               <Link href={`/pages/product/${product.slug}`} passHref>
@@ -42,7 +39,7 @@ const SunGlasses = async () => {
                     </h3>
                   </div>
                   <p className="text-sm font-bold text-gray-900">
-                      ETB {product.price} Birr
+                    ETB {product.price} Birr
                   </p>
                 </div>
               </Link>
@@ -50,15 +47,13 @@ const SunGlasses = async () => {
           ))}
         </div>
       </div>
-      <div className="flex justify-center mt-6">
-        <Button className="bg-white hover:bg-purple-100  text-white px-6 py-2  shadow-lg ">
-          <Link
-            href="/pages/SunGlasses"
-            className="flex items-center gap-x-2 text-black"
-          >
-            View All
-          </Link>
-        </Button>
+      <div className="flex justify-center mt-6 ">
+        <Link
+          href="/pages/SunGlasses"
+          className="inline-block border-2 border-black text-black hover:bg-purple-100 px-6 py-2 rounded"
+        >
+          View All
+        </Link>
       </div>
     </div>
   );

@@ -134,14 +134,12 @@ export const Hero = () => {
               <h2 className="text-gray-400 text-2xl sm:text-3xl font-bold drop-shadow-lg">
                 {item.text}
               </h2>
-              <Button className="bg-white hover:bg-purple-100  text-white px-6 py-2  shadow-lg ">
-                <Link
-                  href={item.text}
-                  className="flex items-center gap-x-2 text-black"
-                >
-                  View All
-                </Link>
-              </Button>
+              <Link
+                href="/pages/SunGlasses"
+                className="inline-block border-2 border-black text-black hover:bg-purple-100 px-6 py-2 rounded"
+              >
+                View All
+              </Link>
             </div>
           </div>
         ))}
