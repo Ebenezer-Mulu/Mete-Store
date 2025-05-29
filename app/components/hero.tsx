@@ -7,12 +7,12 @@ import React, { useRef, useState, useEffect } from "react";
 
 const images = [
   {
-    url: "/assets/1.jpg",
+    url: "/assets/eyeglass.jpg",
     text: "Sunglasses",
     link: "",
   },
   {
-    url: "/assets/2.jpg",
+    url: "/assets/watch.jpg",
     text: "Watches",
     link: "",
   },
@@ -22,12 +22,12 @@ const images = [
     link: "",
   },
   {
-    url: "/assets/1.jpg",
+    url: "/assets/watch.jpg",
     text: "Shirt",
     link: "",
   },
   {
-    urlurl: "/assets/2.jpg",
+    urlurl: "/assets/watch.jpg",
     text: "Shoes",
     link: "",
   },
@@ -37,7 +37,7 @@ const images = [
     link: "",
   },
   {
-    url: "/assets/1.jpg",
+    url: "/assets/watch.jpg",
     text: "Suit",
     link: "",
   },
@@ -130,13 +130,13 @@ export const Hero = () => {
               className="object-cover object-center rounded-lg"
             />
             {/* Text overlay */}
-            <div className="absolute inset-0 flex flex-col gap-5 items-center justify-center  bg-opacity-40 rounded-lg">
-              <h2 className="text-gray-400 text-2xl sm:text-3xl font-bold drop-shadow-lg">
+            <div className="absolute inset-0 flex flex-col gap-36 items-center justify-center  bg-opacity-40 rounded-lg">
+              <h2 className="text-gray-500 text-2xl sm:text-3xl font-bold ">
                 {item.text}
               </h2>
               <Link
                 href="/pages/SunGlasses"
-                className="inline-block border-2 border-black text-black hover:bg-purple-100 px-6 py-2 rounded"
+                className="inline-block border-2 border-white text-white hover:bg-white hover:text-black px-6 py-2 rounded"
               >
                 View All
               </Link>

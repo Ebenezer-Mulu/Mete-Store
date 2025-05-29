@@ -57,6 +57,23 @@ async function main() {
           "https://i.ibb.co/JW7KNXB3/4.jpg",
         ],
       },
+      {
+        name: "Photochromic Glasses",
+        slug: "Eyebrow-Photochromic-Glasses",
+        description:
+          "Retro Eyebrow Frame Photochromic Glasses Metal Decoration Handsome Eyewear Daily Commuting Casual Eyeglasses Fall Winter Outfits Beach Accessories Vintage Y2k Basics Business Casual Gifts For Summer Beach Vacation,Outdoor,Travel",
+        price: 2400,
+        categoryId: 1,
+        image: [
+          "https://i.ibb.co/DmFXbhR/1.jpg",
+          " https://i.ibb.co/SXMrR86f/2.jpg",
+          "https://i.ibb.co/TBZSGfmw/3.jpg",
+          "https://i.ibb.co/W4WNjMH4/4.jpg",
+          "https://i.ibb.co/LX2yzfdH/5.jpg",
+          "https://i.ibb.co/yncGfnGQ/6.jpg",
+          "https://i.ibb.co/99Jffq9V/7.jpg",
+        ],
+      },
     ],
     skipDuplicates: true,
   });

@@ -22,6 +22,13 @@ const links = [
   { name: "Home", href: "/" },
   { name: "SunGlasses", href: "/pages/SunGlasses" },
   { name: "Watches", href: "/pages/Watches" },
+   { name: "Earing", href:"/pages/Jewelry"},
+  { name: "Rings", href: "/pages/CropTops" },
+  { name: "Jackets", href:"/pages/Jackets"},
+  { name: "Crop Tops", href: "/pages/CropTops" },
+  { name: "Shoes", href: "/pages/Shoes" },
+  { name: "Coats ", href: "/pages/Coats" },
+  { name: "Hoodie", href: "/pages/Hoodie" },
 ];
 
 export default function NavBar() {
@@ -29,8 +36,8 @@ export default function NavBar() {
   const { handleCartClick } = useCart();
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white  shadow-sm">
-      <div className="relative flex items-center justify-between mx-auto max-w-2xl px-4 sm:px-4 lg:max-w-7xl w-full h-15 ">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-white shadow-sm">
+      <div className="relative flex items-center justify-between mx-auto max-w-2xl px-4 sm:px-4 lg:max-w-7xl w-full h-15">
         <div className="z-10">
           <Drawer direction="left">
             <DrawerTrigger asChild>
@@ -39,11 +46,11 @@ export default function NavBar() {
               </Button>
             </DrawerTrigger>
             <DrawerContent
-              className="fixed left-0 top-0 h-full w-3/4 lg:w-80 max-w-xs bg-white shadow-lg z-50 rounded-none"
+              className="fixed left-0 top-0 h-full w-3/4 lg:w-80 max-w-xs bg-white shadow-lg z-50 rounded-none flex flex-col"
               style={{ animation: "slideInLeft 0.3s ease-out" }}
             >
               <DrawerHeader>
-                <DrawerTitle className="flex flex-row justify-between">
+                <DrawerTitle className="flex flex-row justify-between items-center">
                   <DrawerClose asChild>
                     <IoClose />
                   </DrawerClose>
@@ -64,26 +71,35 @@ export default function NavBar() {
                   </Button>
                 </DrawerTitle>
                 <DrawerDescription className="text-center text-gray-500">
-                  Where Style Meet's Fashion
+                  Where Style Meet&apos;s Fashion
                 </DrawerDescription>
               </DrawerHeader>
 
-              <nav className="flex flex-col gap-4 p-4">
-                {links.map((link, idx) => (
-                  <DrawerClose asChild key={idx}>
-                    <Link
-                      href={link.href}
-                      className={`text-lg font-medium ml-2 rounded-sm p-1 ${
-                        pathname === link.href
-                          ? "text-purple-700"
-                          : "text-gray-600 hover:text-primary"
-                      }`}
-                    >
-                      {link.name}
-                    </Link>
-                  </DrawerClose>
-                ))}
-              </nav>
+              <div className="flex-1 overflow-y-auto px-4 py-2">
+                <nav className="flex flex-col gap-4">
+                  {links.map((link, idx) => (
+                    <DrawerClose asChild key={idx}>
+                      <Link
+                        href={link.href}
+                        className={`text-lg font-medium ml-2 rounded-sm p-1 ${
+                          pathname === link.href
+                            ? "text-purple-700"
+                            : "text-gray-600 hover:text-primary"
+                        }`}
+                      >
+                        {link.name}
+                      </Link>
+                    </DrawerClose>
+                  ))}
+                </nav>
+              </div>
+
+              {/* Footer pinned to bottom */}
+              <div className="mt-auto border-t border-gray-200 text-center text-sm py-4 bg-gray-50">
+                <p>
+                  © {new Date().getFullYear()} Mete Store. All rights reserved.
+                </p>
+              </div>
             </DrawerContent>
           </Drawer>
         </div>
