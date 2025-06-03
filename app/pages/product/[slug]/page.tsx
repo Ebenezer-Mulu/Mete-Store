@@ -108,9 +108,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
                 price={product.price}
                 key={product.id}
               />
-              <Button className="bg-red-400 text-white">
-                <Link href="/pages/checkout">CheckOut Now</Link>
-              </Button>
+             
             </div>
 
             <p className="mt-12 text-base text-gray-500 tracking-wide">

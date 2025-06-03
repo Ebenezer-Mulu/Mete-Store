@@ -10,7 +10,7 @@ const ProductsByCategory = async () => {
     categories.map(async (category) => {
       const products = await prisma.product.findMany({
         where: {
-          category: { name: category.name },
+          categoryId: category.id,
         },
         orderBy: { createdAt: "desc" },
         take: 4,

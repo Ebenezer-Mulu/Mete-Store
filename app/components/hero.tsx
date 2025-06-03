@@ -17,40 +17,40 @@ const images = [
     link: "",
   },
   {
-    url: "/assets/3.jpg",
-    text: "Jackets",
+    url: "/assets/ring.jpg",
+    text: "Rings",
     link: "",
   },
   {
-    url: "/assets/watch.jpg",
-    text: "Shirt",
+    url: "/assets/earing.jpg",
+    text: "Earing",
     link: "",
   },
-  {
-    urlurl: "/assets/watch.jpg",
-    text: "Shoes",
-    link: "",
-  },
-  {
-    url: "/assets/3.jpg",
-    text: "Trousers",
-    link: "",
-  },
-  {
-    url: "/assets/watch.jpg",
-    text: "Suit",
-    link: "",
-  },
-  {
-    url: "/assets/2.jpg",
-    text: "Hoodie",
-    link: "",
-  },
-  {
-    url: "/assets/3.jpg",
-    text: "Shorts",
-    link: "",
-  },
+  // {
+  //   urlurl: "/assets/hoodie.jpg",
+  //   text: "Hoodie",
+  //   link: "",
+  // },
+  // {
+  //   url: "/assets/3.jpg",
+  //   text: "Trousers",
+  //   link: "",
+  // },
+  // {
+  //   url: "/assets/watch.jpg",
+  //   text: "Suit",
+  //   link: "",
+  // },
+  // {
+  //   url: "/assets/2.jpg",
+  //   text: "Hoodie",
+  //   link: "",
+  // },
+  // {
+  //   url: "/assets/3.jpg",
+  //   text: "Shorts",
+  //   link: "",
+  // },
 ];
 
 export const Hero = () => {
@@ -130,12 +130,9 @@ export const Hero = () => {
               className="object-cover object-center rounded-lg"
             />
             {/* Text overlay */}
-            <div className="absolute inset-0 flex flex-col gap-36 items-center justify-center  bg-opacity-40 rounded-lg">
-              <h2 className="text-gray-500 text-2xl sm:text-3xl font-bold ">
-                {item.text}
-              </h2>
+            <div className="absolute inset-0 flex items-end justify-center bg-opacity-40 rounded-lg p-4">
               <Link
-                href="/pages/SunGlasses"
+                href={`/pages/${item.text}`}
                 className="inline-block border-2 border-white text-white hover:bg-white hover:text-black px-6 py-2 rounded"
               >
                 View All

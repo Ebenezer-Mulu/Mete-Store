@@ -72,11 +72,8 @@
 //   }
 // }
 
-import { sql } from "@vercel/postgres";
 import prisma from "app/lib/prisma";
 import { NextRequest } from "next/server";
-
-
 
 export async function GET(
   req: NextRequest,
@@ -88,7 +85,10 @@ export async function GET(
     const products = await prisma.product.findMany({
       where: {
         category: {
-          name: categoryName,
+          name: {
+            equals: categoryName,
+            mode: "insensitive",
+          },
         },
       },
       orderBy: {
@@ -105,4 +105,3 @@ export async function GET(
     return new Response("Failed to fetch products", { status: 500 });
   }
 }
-
