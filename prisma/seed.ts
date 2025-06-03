@@ -15,33 +15,33 @@ async function main() {
   await prisma.product.createMany({
     data: [
       {
-        name: "Geometric Photochromic Glasses",
-        slug: "Geometric-Photochromic-Glasses",
+        name: "Couple Watch ",
+        slug: "Black-and-White-Silicon-Strap-Couple-Watch",
         description:
-          "1pc Men Geometric Fashion Photochromic Glasses For School Life Daily Clothing Accessories Casual Shades Accessories Beach Accessories Glasses Shades Looks Street Style And Suit For Sweater Jacket Sweatshirt Hoodie Leather Pants And Cargo Pants",
-        price: 2100,
-        categoryId: 1,
+          "4pcs Black & White Silicon Strap Couple Watch Set With Alloy Heart Chain Bracelet",
+        price: 2600,
+        categoryId: 2,
         image: [
-          " https://i.ibb.co/q3Y2t5sq/1.jpg",
-          "https://i.ibb.co/gnzHgsf/2.jpg",
-          "https://i.ibb.co/wNMDwDrj/3.jpg",
-          "https://i.ibb.co/mk9ypCd/4.jpg",
-          "https://i.ibb.co/3mFjCt8w/5.jpg",
+          " https://i.ibb.co/VptWN0fp/1.jpg",
+          "https://i.ibb.co/4nCGxK4L/2.jpg",
+          "https://i.ibb.co/pvC1w2cy/3.jpg",
+          "https://i.ibb.co/YT4typcV/4.jpg",
         ],
       },
       {
-        name: "Classic Retro Half Frame",
-        slug: "Retro-Half-Frame",
+        name: "Couple Quartz Watches",
+        slug: "Couple-Quartz-Watches",
         description:
-          "1pc Classic Retro Half Frame High-Definition Student Eyeglasses Clear Glasses Accessories",
-        price: 1800,
-        categoryId: 1,
+          "Couple Stainless Steel Strap Fashionable Simple Diamond-Studded Dial Quartz Watches + Heart Beaded Bracelet Set (4pcs/Set) As A Gift For Students Returning To School",
+        price: 3400,
+        categoryId: 2,
         image: [
-          " https://i.ibb.co/RpxHc86n/1.jpg",
-          "https://i.ibb.co/Z6DQFyNz/2.jpg",
-          "https://i.ibb.co/DDd46z8K/3.jpg",
-          "https://i.ibb.co/LXJY9T4w/4.jpg",
-          "https://i.ibb.co/Fk9GkGnm/5.jpg",
+          "https://i.ibb.co/BHSnfq4j/1.jpg",
+          "https://i.ibb.co/QjfTRzKn/2.jpg",
+          "https://i.ibb.co/qYQcybSG/3.jpg",
+          "https://i.ibb.co/Qjqhsc1Z/4.jpg",
+          "https://i.ibb.co/LD3d1jtb/5.jpg",
+          "https://i.ibb.co/27x1zRYc/6.jpg",
         ],
       },
       {
@@ -50,7 +50,7 @@ async function main() {
         description:
           "1pc Fashionable Unisex Plano Lenses Square Metal Eyeglasses Frame With High-End Classic Retro Style Eyebrow Details Clear Glasses Accessories",
         price: 1800,
-        categoryId: 1,
+        categoryId: 2,
         image: [
           "https://i.ibb.co/CsMcGmR0/1.jpg",
           "https://i.ibb.co/QvFcKNmb/2.jpg",
@@ -61,16 +61,17 @@ async function main() {
         ],
       },
       {
-        name: "KINGSEVEN Men's Glasses ",
-        slug: "kingseven-new-brand-design-mens-glasses",
+        name: "Heart Quartz Watch ",
+        slug: "Heart-Quartz-Watch",
         description:
-          "KINGSEVEN New Brand Design Men's Glasses Polarized Sunglasses  Integrated Lens Fashion Eyewear Oculos de sol",
-        price: 2600,
-        categoryId: 1,
+          "4pcs/Set Fashion Cute Firework Heart Quartz Watch + Heart Bracelet Set For Women",
+        price: 2800,
+        categoryId: 2,
         image: [
-          "https://i.ibb.co/4R9GPgDN/1.jpg",
-          "https://i.ibb.co/CKGn7M4K/2.jpg",
-          "https://i.ibb.co/3y9DRdSX/4.jpg",
+         "https://i.ibb.co/N2rZ78nY/1.jpg",
+"https://i.ibb.co/j9B0GqQ5/2.jpg",
+"https://i.ibb.co/RkFJsvbZ/3.jpg",
+"https://i.ibb.co/DPZCvNdH/4.jpg"
         ],
       },
       {

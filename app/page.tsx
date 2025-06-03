@@ -1,6 +1,6 @@
 import { Hero } from "./components/hero";
 import Newest from "./components/items/Newest";
-import ProductsByCategory from "./components/items/sunglasses";
+import ProductsByCategory from "./components/items/productByCategory";
 
 import "./globals.css";
 
@@ -10,7 +10,7 @@ export default function Home() {
       <Hero />
       <Newest />
       <ProductsByCategory />
-      {/* <Watches /> */}
+ 
       
     </div>
   );

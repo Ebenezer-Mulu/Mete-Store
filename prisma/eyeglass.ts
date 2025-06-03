@@ -20,7 +20,7 @@ async function main() {
         description:
           "1pc Men Geometric Fashion Photochromic Glasses For School Life Daily Clothing Accessories Casual Shades Accessories Beach Accessories Glasses Shades Looks Street Style And Suit For Sweater Jacket Sweatshirt Hoodie Leather Pants And Cargo Pants",
         price: 2100,
-        categoryId: 1,
+        categoryId: 2,
         image: [
           " https://i.ibb.co/q3Y2t5sq/1.jpg",
           "https://i.ibb.co/gnzHgsf/2.jpg",
