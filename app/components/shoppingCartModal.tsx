@@ -1,4 +1,3 @@
-// app/components/ShoppingCartModal.tsx
 "use client";
 
 import React from "react";
@@ -11,8 +10,33 @@ import {
 import { useCart } from "../../hooks/useCart";
 import Image from "next/image";
 import { Button } from "@/components/components/ui/button";
-import { Trash2, Minus, Plus } from "lucide-react";
+import { Trash2, Minus, Plus, Share2 } from "lucide-react";
 import Link from "next/link";
+
+
+const handleShare = async () => {
+  const formData = new FormData();
+  formData.append("chat_id", process.env.NEXT_PUBLIC_TELEGRAM_ID!);
+  formData.append("text", "🛒 View my cart: https://MeteStore.com/pages/cart");
+
+  const response = await fetch(
+    `https://api.telegram.org/bot${process.env.NEXT_PUBLIC_BOT_TOKEN}/sendMessage`,
+    {
+      method: "POST",
+      body: formData,
+    }
+  );
+
+  const data = await response.json();
+  console.log("Telegram response:", data);
+
+  if (!response.ok) {
+    alert(`❌ Telegram error: ${data.description}`);
+    return;
+  }
+
+  alert("✅ Cart link sent to Telegram!");
+};
 
 const ShoppingCartModal = () => {
   const {
@@ -22,19 +46,39 @@ const ShoppingCartModal = () => {
     cartDetails,
     updateItemQuantity,
     removeItem,
+    total,
   } = useCart();
 
   return (
     <Sheet open={shouldDisplayCart} onOpenChange={(open) => toggleCart(open)}>
       <SheetContent className="sm:max-w-lg w-[90vw]">
-        <SheetHeader>
+        <SheetHeader className="flex flex-row justify-between items-center">
           <SheetTitle>Shopping Cart</SheetTitle>
+          <div className="flex items-center space-x-4">
+            {/* Tooltip Wrapper */}
+            <div className="relative group">
+              <Share2
+                className="mr-8 w-4 h-4 text-gray-600 cursor-pointer "
+                onClick={handleShare}
+              />
+
+              {/* Tooltip */}
+              <div className="absolute mt-5 mr-12 -top-8 left-1/2 -translate-x-1/2 scale-0 group-hover:scale-100 transition-transform bg-black text-white text-xs px-2 py-1 rounded-md whitespace-nowrap z-10">
+                Share
+              </div>
+            </div>
+          </div>
         </SheetHeader>
-        <div className="h-full flex flex-col justify-between">
-          <div className="mt-8 flex-1 overflow-y-auto">
-            <ul className="my-6 divide-y divide-gray-200">
+
+        <div
+          id="cart-content"
+          className="flex flex-col h-[calc(100vh-5rem)] cart-content"
+        >
+          {" "}
+          <div className="flex-1 overflow-y-auto mt-4">
+            <ul className="divide-y divide-gray-200 px-2">
               {cartCount === 0 ? (
-                <h1 className="py-6">You don’t have any items</h1>
+                <h1 className="py-6 text-center">You don’t have any items</h1>
               ) : (
                 <>
                   {cartDetails.map((entry) => (
@@ -48,15 +92,11 @@ const ShoppingCartModal = () => {
                         />
                       </div>
                       <div className="ml-4 flex flex-1 flex-col">
-                        <div>
-                          <div className="flex justify-between text-base font-medium text-gray-900">
-                            <h3>{entry.name}</h3>
-                            <p className="mr-8">{entry.price} Birr</p>
-                          </div>
-                          <p className="mt-1 text-sm text-gray-500 line-clamp-2">
-                            {entry.description}
-                          </p>
+                        <div className="flex justify-between text-base font-medium text-gray-900">
+                          {entry.name.split(" ").slice(0, 3).join(" ")}
+                          <p className="mr-8">{entry.price} Birr</p>
                         </div>
+
                         <div className="flex flex-1 items-end justify-between text-sm">
                           <p className="text-gray-500 mb-1">Quantity</p>
                           <div className="flex items-center space-x-2">
@@ -77,11 +117,9 @@ const ShoppingCartModal = () => {
                                 }
                               />
                             )}
-
                             <span className="text-sm font-medium text-gray-700">
                               {entry.quantity}
                             </span>
-
                             <Plus
                               className="w-6 h-6 p-1 rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200 cursor-pointer transition"
                               onClick={() =>
@@ -107,23 +145,24 @@ const ShoppingCartModal = () => {
               )}
             </ul>
           </div>
-          <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
+          {/* Fixed footer */}
+          <div className="border-t border-gray-200 px-4 py-2 sm:px-2 bg-white">
             <div className="flex justify-between text-base font-medium text-gray-900">
               <p>Subtotal</p>
-              <p>total Birr</p>
+              <p className="font-bold">ETB {total} Birr</p>
             </div>
             <p className="mt-0.5 text-sm text-gray-500">
               Shipping and taxes are Calculated at Checkout
             </p>
-            <div className="mt-6">
+            <div className="mt-2">
               <Button
                 onClick={() => toggleCart(false)}
-                className="w-full  bg-purple-400 hover:text-purple-100"
+                className="w-full bg-purple-400 hover:text-purple-100"
               >
-                <Link href="/pages/checkout"> Checkout</Link>
+                <Link href="/pages/checkout">Checkout</Link>
               </Button>
             </div>
-            <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
+            <div className=" flex justify-center text-center text-sm text-gray-500">
               <p>
                 <strong>OR </strong>
                 <button

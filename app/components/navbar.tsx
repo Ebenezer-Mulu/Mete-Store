@@ -25,10 +25,10 @@ const links = [
    { name: "Earing", href:"/pages/Earing"},
   { name: "Rings", href: "/pages/Rings" },
   { name: "Jackets", href:"/pages/Jackets"},
-  { name: "Crop Tops", href: "/pages/CropTops" },
-  { name: "Shoes", href: "/pages/Shoes" },
-  { name: "Coats ", href: "/pages/Coats" },
-  { name: "Hoodie", href: "/pages/Hoodie" },
+  { name: "Contact us", href: "/pages/contact_us" },
+  // { name: "Shoes", href: "/pages/Shoes" },
+  // { name: "Coats ", href: "/pages/Coats" },
+  // { name: "Hoodie", href: "/pages/Hoodie" },
 ];
 
 export default function NavBar() {

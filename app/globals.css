@@ -8,6 +8,15 @@
   display: none; /* Chrome, Safari */
 }
 
+#cart-content,
+#cart-content * {
+  background-color: white !important;
+  color: black !important;
+  box-shadow: none !important;
+  border-color: black !important;
+  filter: none !important;
+}
+
 :root {
   --radius: 0.5rem;
   --background: oklch(1 0 0);
