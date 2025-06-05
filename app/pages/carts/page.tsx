@@ -1,86 +1,84 @@
-// app/pages/cart.tsx or app/cart/page.tsx
+
 "use client";
 
-
+import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import Image from "next/image";
-import { Trash2, Minus, Plus } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/components/ui/button";
-import { useCart } from "hooks/useCart";
 
-export default function CartPage() {
-  const {
-    cartCount,
-    cartDetails,
-    updateItemQuantity,
-    removeItem,
-    total,
-  } = useCart();
+// Simulated fetch function (you'd replace this with your actual API call)
+const fetchProductsByIds = async (items: { id: string; quantity: number }[]) => {
+  // Example static product list for demo purposes
+  const allProducts = [
+    { id: "1", name: "T-shirt", price: 300, image: "/tshirt.jpg", description: "100% Cotton T-Shirt" },
+    { id: "2", name: "Cap", price: 100, image: "/cap.jpg", description: "Cool Cap" },
+    { id: "3", name: "Shoes", price: 600, image: "/shoes.jpg", description: "Running Shoes" },
+  ];
+
+  return items.map(({ id, quantity }) => {
+    const product = allProducts.find((p) => p.id === id);
+    return product ? { ...product, quantity } : null;
+  }).filter(Boolean);
+};
+
+export default function SharedCartPage() {
+  const params = useSearchParams();
+  const [cart, setCart] = useState<any[]>([]);
+
+  useEffect(() => {
+    const data = params.get("data");
+    if (!data) return;
+
+    try {
+      const parsed = JSON.parse(decodeURIComponent(data));
+      fetchProductsByIds(parsed).then(setCart);
+    } catch (err) {
+      console.error("Invalid cart data.", err);
+    }
+  }, [params]);
+
+  const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8">
-      <h1 className="text-2xl font-bold mb-6">Your Cart</h1>
-
-      {cartCount === 0 ? (
-        <p className="text-center">You don’t have any items.</p>
+    <div className="max-w-3xl mx-auto py-10 px-4">
+      <h1 className="text-2xl font-bold mb-6">🛒 Shared Cart</h1>
+      {cart.length === 0 ? (
+        <p className="text-center">No items to show.</p>
       ) : (
-        <ul className="space-y-6">
-          {cartDetails.map((entry) => (
-            <li key={entry.id} className="flex items-start space-x-4">
-              <Image src={entry.image} alt={entry.name} width={100} height={100} />
+        <ul className="divide-y divide-gray-300">
+          {cart.map((item) => (
+            <li key={item.id} className="flex py-4 space-x-4">
+              <Image
+                src={item.image}
+                width={80}
+                height={80}
+                alt={item.name}
+                className="rounded border"
+              />
               <div className="flex-1">
-                <h2 className="text-lg font-semibold">{entry.name}</h2>
-                <p className="text-sm text-gray-500">{entry.description}</p>
-                <p className="font-medium text-purple-600 mt-1">{entry.price} Birr</p>
-
-                <div className="flex items-center mt-2 space-x-2">
-                  {entry.quantity === 1 ? (
-                    <Trash2
-                      className="w-6 h-6 text-red-500 cursor-pointer"
-                      onClick={() => removeItem(entry.id)}
-                    />
-                  ) : (
-                    <Minus
-                      className="w-6 h-6 text-gray-600 cursor-pointer"
-                      onClick={() =>
-                        updateItemQuantity(entry.id, entry.quantity - 1)
-                      }
-                    />
-                  )}
-                  <span>{entry.quantity}</span>
-                  <Plus
-                    className="w-6 h-6 text-gray-600 cursor-pointer"
-                    onClick={() =>
-                      updateItemQuantity(entry.id, entry.quantity + 1)
-                    }
-                  />
-                </div>
+                <h2 className="font-semibold">{item.name}</h2>
+                <p className="text-sm text-gray-500">{item.description}</p>
+                <p>
+                  Quantity: <strong>{item.quantity}</strong>
+                </p>
+                <p>
+                  Total: <strong>{item.price * item.quantity} Birr</strong>
+                </p>
               </div>
             </li>
           ))}
         </ul>
       )}
 
-      <div className="mt-8 border-t pt-4">
-        <div className="flex justify-between text-lg font-semibold">
-          <span>Total:</span>
-          <span>ETB {total} Birr</span>
-        </div>
-
-        <div className="mt-4 flex gap-4">
+      {cart.length > 0 && (
+        <div className="mt-6 text-right">
+          <p className="text-lg font-bold">Total: ETB {total} Birr</p>
           <Link href="/pages/checkout">
-            <Button className="bg-purple-500 hover:bg-purple-600 text-white w-full">
-              Checkout
-            </Button>
+            <Button className="mt-4 bg-purple-500 text-white">Go to Checkout</Button>
           </Link>
-          <Button
-            className="bg-gray-200 hover:bg-gray-300 w-full"
-            onClick={() => window.location.href = "/"}
-          >
-            Continue Shopping
-          </Button>
         </div>
-      </div>
+      )}
     </div>
   );
 }

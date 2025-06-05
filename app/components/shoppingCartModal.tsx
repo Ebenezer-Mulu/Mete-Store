@@ -13,31 +13,6 @@ import { Button } from "@/components/components/ui/button";
 import { Trash2, Minus, Plus, Share2 } from "lucide-react";
 import Link from "next/link";
 
-
-const handleShare = async () => {
-  const formData = new FormData();
-  formData.append("chat_id", process.env.NEXT_PUBLIC_TELEGRAM_ID!);
-  formData.append("text", "🛒 View my cart: https://MeteStore.com/pages/cart");
-
-  const response = await fetch(
-    `https://api.telegram.org/bot${process.env.NEXT_PUBLIC_BOT_TOKEN}/sendMessage`,
-    {
-      method: "POST",
-      body: formData,
-    }
-  );
-
-  const data = await response.json();
-  console.log("Telegram response:", data);
-
-  if (!response.ok) {
-    alert(`❌ Telegram error: ${data.description}`);
-    return;
-  }
-
-  alert("✅ Cart link sent to Telegram!");
-};
-
 const ShoppingCartModal = () => {
   const {
     cartCount,
@@ -48,6 +23,36 @@ const ShoppingCartModal = () => {
     removeItem,
     total,
   } = useCart();
+
+  const handleShare = async () => {
+    if (!cartDetails || cartDetails.length === 0) {
+      alert("Cart is empty");
+      return;
+    }
+
+    const cartData = encodeURIComponent(btoa(JSON.stringify(cartDetails)));
+
+    const sharedCartUrl = `https://mete-store.vercel.app/pages/carts?data=${cartData}`;
+
+    const formData = new FormData();
+    formData.append("chat_id", process.env.NEXT_PUBLIC_TELEGRAM_ID!);
+    formData.append("text", `🛒 View shared cart: ${sharedCartUrl}`);
+
+    const res = await fetch(
+      `https://api.telegram.org/bot${process.env.NEXT_PUBLIC_BOT_TOKEN}/sendMessage`,
+      {
+        method: "POST",
+        body: formData,
+      }
+    );
+
+    if (!res.ok) {
+      const error = await res.json();
+      alert("❌ Failed to share: " + error.description);
+    } else {
+      alert("✅ Cart link sent to Telegram!");
+    }
+  };
 
   return (
     <Sheet open={shouldDisplayCart} onOpenChange={(open) => toggleCart(open)}>
