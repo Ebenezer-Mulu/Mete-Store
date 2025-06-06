@@ -1,84 +1,50 @@
-
 "use client";
-
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import Image from "next/image";
-import Link from "next/link";
-import { Button } from "@/components/components/ui/button";
-
-// Simulated fetch function (you'd replace this with your actual API call)
-const fetchProductsByIds = async (items: { id: string; quantity: number }[]) => {
-  // Example static product list for demo purposes
-  const allProducts = [
-    { id: "1", name: "T-shirt", price: 300, image: "/tshirt.jpg", description: "100% Cotton T-Shirt" },
-    { id: "2", name: "Cap", price: 100, image: "/cap.jpg", description: "Cool Cap" },
-    { id: "3", name: "Shoes", price: 600, image: "/shoes.jpg", description: "Running Shoes" },
-  ];
-
-  return items.map(({ id, quantity }) => {
-    const product = allProducts.find((p) => p.id === id);
-    return product ? { ...product, quantity } : null;
-  }).filter(Boolean);
-};
 
 export default function SharedCartPage() {
   const params = useSearchParams();
   const [cart, setCart] = useState<any[]>([]);
 
   useEffect(() => {
-    const data = params.get("data");
-    if (!data) return;
+    const dataParam = params.get("data");
+    console.log("🚀 dataParam:", dataParam); // Step 1
+
+    if (!dataParam) return;
 
     try {
-      const parsed = JSON.parse(decodeURIComponent(data));
-      fetchProductsByIds(parsed).then(setCart);
+      const decodedURIComponent = decodeURIComponent(dataParam);
+      console.log("📨 decoded URI:", decodedURIComponent); // Step 2
+
+      const decodedBase64 = atob(decodedURIComponent);
+      console.log("🧩 decoded Base64:", decodedBase64); // Step 3
+
+      const parsed = JSON.parse(decodedBase64);
+      console.log("✅ parsed JSON:", parsed); // Step 4
+
+      if (Array.isArray(parsed)) {
+        setCart(parsed);
+      } else {
+        console.error("❌ parsed data is not an array:", parsed);
+      }
     } catch (err) {
-      console.error("Invalid cart data.", err);
+      console.error("🔥 Error decoding cart data:", err);
     }
   }, [params]);
 
-  const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  if (cart.length === 0) {
+    return <div>No items to show. Check console logs above.</div>;
+  }
 
   return (
-    <div className="max-w-3xl mx-auto py-10 px-4">
-      <h1 className="text-2xl font-bold mb-6">🛒 Shared Cart</h1>
-      {cart.length === 0 ? (
-        <p className="text-center">No items to show.</p>
-      ) : (
-        <ul className="divide-y divide-gray-300">
-          {cart.map((item) => (
-            <li key={item.id} className="flex py-4 space-x-4">
-              <Image
-                src={item.image}
-                width={80}
-                height={80}
-                alt={item.name}
-                className="rounded border"
-              />
-              <div className="flex-1">
-                <h2 className="font-semibold">{item.name}</h2>
-                <p className="text-sm text-gray-500">{item.description}</p>
-                <p>
-                  Quantity: <strong>{item.quantity}</strong>
-                </p>
-                <p>
-                  Total: <strong>{item.price * item.quantity} Birr</strong>
-                </p>
-              </div>
-            </li>
-          ))}
-        </ul>
-      )}
-
-      {cart.length > 0 && (
-        <div className="mt-6 text-right">
-          <p className="text-lg font-bold">Total: ETB {total} Birr</p>
-          <Link href="/pages/checkout">
-            <Button className="mt-4 bg-purple-500 text-white">Go to Checkout</Button>
-          </Link>
+    <div className="mt-20">
+      {cart.map(item => (
+        <div key={item.id}>
+          <p>Name: {item.name}</p>
+          <p>Qty: {item.quantity}</p>
+          <p>Price: {item.price} Birr</p>
         </div>
-      )}
+      ))}
     </div>
   );
 }
