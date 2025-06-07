@@ -32,7 +32,7 @@ const ShoppingCartModal = () => {
 
     const cartData = encodeURIComponent(btoa(JSON.stringify(cartDetails)));
 
-    const sharedCartUrl = `https://mete-store.vercel.app/pages/carts?data=${cartData}`;
+    const sharedCartUrl = `https://mete-store.vercel.app/app/pages/carts?data=${cartData}`;
 
     const formData = new FormData();
     formData.append("chat_id", process.env.NEXT_PUBLIC_TELEGRAM_ID!);
