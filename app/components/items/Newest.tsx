@@ -25,7 +25,7 @@ export default async function Newest() {
         <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-10 sm:grid-cols-2 lg:grid-cols-4  xl:gap-x-6">
           {products.map((product) => (
             <div key={product.id} className="group relative ">
-              <Link href={`/pages/product/${product.slug}`} passHref>
+              <Link href={`/product/${product.slug}`} passHref>
                 <div className="aspect-square w-full overflow-hidden rounded-md bg-gray-200 shadow-sm group-hover:opacity-75 lg:h-80">
                   <Image
                     src={product.image[0]}

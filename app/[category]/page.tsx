@@ -36,9 +36,9 @@ export default function ProductList() {
   useEffect(() => {
     const updateProductsPerPage = () => {
       if (window.innerWidth >= 1024) {
-        setProductsPerPage(12); // large screens (lg: and above)
+        setProductsPerPage(12);
       } else {
-        setProductsPerPage(10); // small/medium screens
+        setProductsPerPage(10);
       }
     };
 
@@ -50,7 +50,10 @@ export default function ProductList() {
 
   const totalPages = Math.ceil(products.length / productsPerPage);
   const startIndex = (currentPage - 1) * productsPerPage;
-  const paginatedProducts = products.slice(startIndex, startIndex + productsPerPage);
+  const paginatedProducts = products.slice(
+    startIndex,
+    startIndex + productsPerPage
+  );
 
   const goToPage = (page: number) => {
     if (page >= 1 && page <= totalPages) {
@@ -68,7 +71,7 @@ export default function ProductList() {
         <div className="grid grid-cols-2 gap-x-4 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-6">
           {paginatedProducts.map((product: any) => (
             <div key={product.id} className="group relative">
-              <Link href={`/pages/product/${product.slug}`}>
+              <Link href={`/product/${product.slug}`}>
                 <div className="aspect-square w-full shadow-sm overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75 lg:h-80">
                   <Image
                     src={product.image[0]}
@@ -98,14 +101,19 @@ export default function ProductList() {
               <PaginationItem>
                 <PaginationPrevious
                   onClick={() => goToPage(currentPage - 1)}
-                  className={currentPage === 1 ? "pointer-events-none opacity-50" : ""}
+                  className={
+                    currentPage === 1 ? "pointer-events-none opacity-50" : ""
+                  }
                 />
               </PaginationItem>
 
               {Array.from({ length: totalPages }).map((_, index) => {
                 const page = index + 1;
-                const isVisible = Math.abs(currentPage - page) <= 2 || page === 1 || page === totalPages;
-                if (!isVisible && (page !== 2 && page !== totalPages - 1)) {
+                const isVisible =
+                  Math.abs(currentPage - page) <= 2 ||
+                  page === 1 ||
+                  page === totalPages;
+                if (!isVisible && page !== 2 && page !== totalPages - 1) {
                   if (index === 1 || index === totalPages - 2) {
                     return (
                       <PaginationItem key={`ellipsis-${index}`}>
@@ -130,7 +138,11 @@ export default function ProductList() {
               <PaginationItem>
                 <PaginationNext
                   onClick={() => goToPage(currentPage + 1)}
-                  className={currentPage === totalPages ? "pointer-events-none opacity-50" : ""}
+                  className={
+                    currentPage === totalPages
+                      ? "pointer-events-none opacity-50"
+                      : ""
+                  }
                 />
               </PaginationItem>
             </PaginationContent>
