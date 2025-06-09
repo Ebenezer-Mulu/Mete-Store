@@ -1,37 +1,29 @@
-import prisma from "app/lib/prisma";
+// app/api/share-cart/route.ts
+import { NextResponse } from "next/server";
 
+export async function POST(req: Request) {
+  const { cartDetails } = await req.json();
 
-export async function POST(request: Request) {
-  try {
-    const cartItems = await request.json(); // expecting array of items with id & quantity
+  const cartData = encodeURIComponent(btoa(JSON.stringify(cartDetails)));
+  const sharedCartUrl = `https://mete-store.vercel.app/carts?data=${cartData}`;
 
-    if (!Array.isArray(cartItems)) {
-      return new Response('Invalid data', { status: 400 });
+  const formData = new URLSearchParams();
+  formData.append("chat_id", process.env.TELEGRAM_ID!);
+  formData.append("text", `🛒 View shared cart: ${sharedCartUrl}`);
+
+  const res = await fetch(
+    `https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage`,
+    {
+      method: "POST",
+      body: formData,
     }
+  );
 
-    // Convert all ids to numbers if necessary
-    const ids = cartItems.map((item) => Number(item.id));
+  const result = await res.json();
 
-    // Fetch products from DB with those IDs
-    const products = await prisma.product.findMany({
-      where: { id: { in: ids } },
-    });
-
-    // Attach quantity to the product objects
-    const productsWithQuantity = products.map((product) => {
-      const cartItem = cartItems.find((item) => Number(item.id) === product.id);
-      return {
-        ...product,
-        quantity: cartItem?.quantity ?? 0,
-      };
-    });
-
-    return new Response(JSON.stringify(productsWithQuantity), {
-      status: 200,
-      headers: { 'Content-Type': 'application/json' },
-    });
-  } catch (error) {
-    console.error('Error fetching shared cart products:', error);
-    return new Response('Internal Server Error', { status: 500 });
+  if (!res.ok) {
+    return NextResponse.json({ error: result.description }, { status: 400 });
   }
+
+  return NextResponse.json({ success: true });
 }

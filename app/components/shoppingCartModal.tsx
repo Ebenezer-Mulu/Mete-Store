@@ -30,25 +30,18 @@ const ShoppingCartModal = () => {
       return;
     }
 
-    const cartData = encodeURIComponent(btoa(JSON.stringify(cartDetails)));
+    const res = await fetch("/api/shared-cart", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ cartDetails }),
+    });
 
-    const sharedCartUrl = `https://mete-store.vercel.app/carts?data=${cartData}`;
-
-    const formData = new FormData();
-    formData.append("chat_id", process.env.NEXT_PUBLIC_TELEGRAM_ID!);
-    formData.append("text", `🛒 View shared cart: ${sharedCartUrl}`);
-
-    const res = await fetch(
-      `https://api.telegram.org/bot${process.env.NEXT_PUBLIC_BOT_TOKEN}/sendMessage`,
-      {
-        method: "POST",
-        body: formData,
-      }
-    );
+    const result = await res.json();
 
     if (!res.ok) {
-      const error = await res.json();
-      alert("❌ Failed to share: " + error.description);
+      alert("❌ Failed to share: " + result.error);
     } else {
       alert("✅ Cart link sent to Telegram!");
     }
