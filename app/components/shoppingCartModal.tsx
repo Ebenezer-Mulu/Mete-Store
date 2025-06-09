@@ -144,20 +144,21 @@ const ShoppingCartModal = () => {
             </ul>
           </div>
           {/* Fixed footer */}
-          <div className="border-t border-gray-200 px-4 py-2 sm:px-2 bg-white">
+          <div className="border-t border-gray-200 px-4 py-2 sm:px-2 ">
             <div className="flex justify-between text-base font-medium text-gray-900">
               <p>Subtotal</p>
-              <p className="font-bold">ETB {total} Birr</p>
+              <p className="font-bold ">ETB {total} Birr</p>
             </div>
             <p className="mt-0.5 text-sm text-gray-500">
               Shipping and taxes are Calculated at Checkout
             </p>
             <div className="mt-2">
               <Button
+        
                 onClick={() => toggleCart(false)}
-                className="w-full bg-purple-400 hover:text-purple-100"
+                className="w-full bg-purple-700 hover:text-purple-100"
               >
-                <Link href="/pages/checkout">Checkout</Link>
+                <Link href="/checkout">Checkout</Link>
               </Button>
             </div>
             <div className=" flex justify-center text-center text-sm text-gray-500">

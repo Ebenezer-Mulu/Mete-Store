@@ -46,7 +46,7 @@ const AddToBag = ({
           addItem(product), handleCartClick();
         }}
       >
-        <Link href="/pages/checkout">CheckOut Now</Link>
+        <Link href="/checkout">CheckOut Now</Link>
       </Button>
     </>
   );

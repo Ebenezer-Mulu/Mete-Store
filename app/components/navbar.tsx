@@ -20,12 +20,12 @@ import { IoClose } from "react-icons/io5";
 
 const links = [
   { name: "Home", href: "/" },
-  { name: "SunGlasses", href: "/pages/SunGlasses" },
-  { name: "Watches", href: "/pages/Watches" },
-   { name: "Earing", href:"/pages/Earing"},
-  { name: "Rings", href: "/pages/Rings" },
-  { name: "Jackets", href:"/pages/Jackets"},
-  { name: "Contact us", href: "/pages/contact_us" },
+  { name: "SunGlasses", href: "/SunGlasses" },
+  { name: "Watches", href: "/Watches" },
+   { name: "Earing", href:"/Earing"},
+  { name: "Rings", href: "/Rings" },
+  // { name: "Jackets", href:"/Jackets"},
+  { name: "Contact us", href: "/contact_us" },
   // { name: "Shoes", href: "/pages/Shoes" },
   // { name: "Coats ", href: "/pages/Coats" },
   // { name: "Hoodie", href: "/pages/Hoodie" },
