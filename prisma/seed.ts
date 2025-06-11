@@ -168,6 +168,45 @@ async function main() {
           "https://i.ibb.co/v4zNPfXD/6.jpg",
         ],
       },
+      {
+        name: "Double Bridge Glasses",
+        slug: "Double-Bridge-Square-Frame-Glasses",
+        description:
+          "1pc Metal Double Bridge Square Frame Glasses, Fashionable Men's Outdoor Personalized Small Frame Eyeglasses",
+        price: 2100,
+        categoryId: 1,
+        image: [
+          "https://i.ibb.co/Xr7KM1Hb/1.jpg",
+          "https://i.ibb.co/Kxfpyxx2/2.jpg",
+          "https://i.ibb.co/7NdHHk91/3.jpg",
+        ],
+      },
+      {
+        name: "Photochromic Sunglasses",
+        slug: "1pc-Men-And-Women-Fashion-Glasses",
+        description:
+          "1pc Men And Women Fashion Glasses, Business Style Glasses Frames Men And Women Fashion Glasses, Can Be Used Indoor And Outdoor, Suitable For Driving Fishing Hiking Cycling Running Golf Everyday Use, Multiple Colors Available (Black Glasses, Brown Glasses, Blue Glasses) For Summer Beach Vacation,Outdoor,Travel",
+        price: 2100,
+        categoryId: 1,
+        image: [
+          "  https://i.ibb.co/VW69KDmk/1.jpg",
+          "https://i.ibb.co/chPX6Mpt/2.jpg",
+        ],
+      },
+      {
+        name: " Oval Decorative Glasses",
+        slug: " Oval-Decorative-Glasses",
+        description:
+          "Vintage Oval Decorative Glasses For Women Small Metal Frame Fashion Glasses Ladies Decorative Glasses Beach Accessories For Women Glasses Shades For Summer Beach Vacation,Outdoor,Travel",
+        price: 1700,
+        categoryId: 1,
+        image: [
+          " https://i.ibb.co/4wXFtwVH/1.jpg",
+          "https://i.ibb.co/dvNWb8q/2.jpg",
+          "https://i.ibb.co/bgcj8LSH/3.jpg",
+          "https://i.ibb.co/mr4svB6j/4.jpg",
+        ],
+      },
     ],
     skipDuplicates: true,
   });
