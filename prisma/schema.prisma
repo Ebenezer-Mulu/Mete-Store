@@ -1,5 +1,5 @@
 generator client {
-  provider = "prisma-client-js" 
+  provider = "prisma-client-js"
 }
 
 datasource db {
@@ -20,6 +20,7 @@ model Product {
   description String
   price       Float
   createdAt   DateTime @default(now())
+  status      String?
   categoryId  Int
   image       String[]
   category    Category @relation(fields: [categoryId], references: [id])
