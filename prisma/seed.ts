@@ -3,7 +3,6 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 async function main() {
-
   await prisma.category.createMany({
     data: [
       { id: 1, name: "Sunglasses" },
@@ -307,6 +306,216 @@ async function main() {
           "https://i.ibb.co/LDtHrJty/2.jpg",
           "https://i.ibb.co/wFZdpLDk/3.jpg",
           "https://i.ibb.co/yFqyJz7j/4.jpg",
+        ],
+      },
+      {
+        name: "Boss Hugo Boss",
+        slug: "Boss-Hugo-Boss",
+        description:
+          "Boss sunglasses combine modern elegance with precision craftsmanship, offering sharp style and reliable UV protection.Perfect for confident, sophisticated looks that stand out effortlessly",
+        price: 2400,
+        categoryId: 1,
+        image: [
+          "https://i.ibb.co/TBQzfbGz/1.jpg",
+          "https://i.ibb.co/60qMmHdd/2.jpg",
+        ],
+      },
+      {
+        name: "Cartier sunglasses",
+        slug: "Cartier-sunglasses",
+        description:
+          "Cartier sunglasses redefine luxury with exquisite detailing and flawless craftsmanship.Designed for those who value sophistication and timeless style.",
+        price: 2500,
+        categoryId: 1,
+        image: [
+          "https://i.ibb.co/QF8VdYTg/1.jpg",
+          "https://i.ibb.co/KzhMkKp7/2.jpg",
+          "https://i.ibb.co/jvS9m0gG/3.jpg",
+          "https://i.ibb.co/NnKMnhmr/4.jpg",
+          "https://i.ibb.co/XxB2kxty/5.jpg",
+          "https://i.ibb.co/6cRT0GYc/6.jpg",
+          "https://i.ibb.co/gMY15fN9/7.jpg",
+          "https://i.ibb.co/HL7VcqJF/8.jpg",
+          "https://i.ibb.co/M55kwtrC/9.jpg",
+        ],
+      },
+      {
+        name: "Celine sunglasses",
+        slug: "Celine-sunglasses",
+        description:
+          "Celine sunglasses blend bold minimalism with Parisian elegance for a distinct high-fashion look.Crafted with premium materials, they offer timeless style and everyday luxury.",
+        price: 2200,
+        categoryId: 1,
+        image: [
+          "https://i.ibb.co/N25rGxvr/1.jpg",
+          "https://i.ibb.co/6pLMD7Z/2.jpg",
+        ],
+      },
+      {
+        name: "Dior sunglasses",
+        slug: "Dior-sunglasses",
+        description:
+          "Dior sunglasses fuse cutting-edge design with luxurious sophistication for a bold fashion statement.Expertly crafted, they offer standout style and flawless UV protection.",
+        price: 2500,
+        categoryId: 1,
+        image: [
+          "https://i.ibb.co/Fb3WFkXQ/1.jpg",
+          "https://i.ibb.co/XkkJd2dq/2.jpg",
+          "https://i.ibb.co/SXFbN2FW/3.jpg",
+          "https://i.ibb.co/zWrgy7pC/4.jpg",
+          "https://i.ibb.co/4Z7qKTqr/5.jpg",
+          "https://i.ibb.co/bg1cHHMy/6.jpg",
+          "https://i.ibb.co/bY0ffVc/7.jpg",
+        ],
+      },
+      {
+        name: "Dita sunglasses",
+        slug: "Dita sunglasses",
+        description:
+          "Dita sunglasses embody precision, luxury, and bold craftsmanship with every frame.Designed for those who appreciate detail, durability, and elevated style.",
+        price: 2400,
+        categoryId: 1,
+        image: [
+          "https://i.ibb.co/tw8k16y5/1.jpg",
+          "https://i.ibb.co/hxyhwy1T/2.jpg",
+        ],
+      },
+      {
+        name: "Gucci sunglasses",
+        slug: "Gucci_sunglasses",
+        description:
+          "Gucci sunglasses showcase bold, iconic designs infused with Italian luxury and flair.Perfect for those who want to make a stylish, confident statement every day.",
+        price: 2500,
+        categoryId: 1,
+        image: [
+          "https://i.ibb.co/cKzr87J0/1.jpg",
+          "https://i.ibb.co/p6S2gJ8Q/2.jpg",
+          "https://i.ibb.co/NQQKhrn/3.jpg",
+          "https://i.ibb.co/VFvnVjB/4.jpg",
+          "https://i.ibb.co/bMGpm7DW/5.jpg",
+          "https://i.ibb.co/TDxSG5Mg/6.jpg",
+          "https://i.ibb.co/sJjdFsDK/7.jpg",
+        ],
+      },
+      {
+        name: "Lacoste sunglasses",
+        slug: "Lacoste_sunglasses",
+        description:
+          "Lacoste sunglasses combine sporty elegance with classic French style for a fresh, versatile look.Durable and comfortable, they’re perfect for active lifestyles and everyday wear.",
+        price: 2600,
+        categoryId: 1,
+        image: [
+          "https://i.ibb.co/FkXNs1Nh/1.jpg",
+          "https://i.ibb.co/ymwW2rhW/2.jpg",
+        ],
+      },
+      {
+        name: "Maybach sunglasses",
+        slug: "Maybach_sunglasses",
+        description:
+          "Maybach sunglasses define luxury with impeccable craftsmanship and sophisticated design.They deliver unmatched elegance and comfort for the discerning style connoisseur.",
+        price: 2500,
+        categoryId: 1,
+        image: [
+          "https://i.ibb.co/whD4qkwK/1.jpg",
+          "https://i.ibb.co/nsxvvwv3/2.jpg",
+          "https://i.ibb.co/tpLwKkjd/3.jpg",
+          "https://i.ibb.co/27539GnV/4.jpg",
+          "https://i.ibb.co/tpGcmtJv/5.jpg",
+          "https://i.ibb.co/tTRTNKq1/6.jpg",
+        ],
+      },
+      {
+        name: "Miu Miu sunglasses",
+        slug: "Miu-Miu-sunglasses",
+        description:
+          "Miu Miu sunglasses bring playful, edgy designs with a touch of youthful elegance.Perfect for those who love bold fashion with a fun, modern twist.",
+        price: 2400,
+        categoryId: 1,
+        image: [
+          "https://i.ibb.co/rRrSVyNQ/1.jpg",
+          "https://i.ibb.co/TD5fdf5X/2.jpg",
+          "https://i.ibb.co/xSGNyT91/3.jpg",
+          "https://i.ibb.co/Dg98XCP0/4.jpg",
+          "https://i.ibb.co/2YRLh1g9/5.jpg",
+          "https://i.ibb.co/4RdJhNF9/6.jpg",
+          "https://i.ibb.co/jPmjz3J0/7.jpg",
+        ],
+      },
+      {
+        name: "Montblanc sunglasses",
+        slug: "Montblanc_sunglasses",
+        description:
+          "Montblanc sunglasses combine refined craftsmanship with timeless, understated luxury.Designed for professionals who appreciate elegance and superior quality.",
+        price: 2400,
+        categoryId: 1,
+        image: [
+          "https://i.ibb.co/93SQf4jj/1.jpg",
+          "https://i.ibb.co/qMK0KCbN/2.jpg",
+          "https://i.ibb.co/S4xWXnGg/3.jpg",
+          "https://i.ibb.co/Vc7h9P3C/4.jpg",
+          "https://i.ibb.co/9kmYx7hT/5.jpg",
+          "https://i.ibb.co/xtdDrdhd/6.jpg",
+          "https://i.ibb.co/TBNcZ1g9/7.jpg",
+        ],
+      },
+      {
+        name: "Prada sunglasses",
+        slug: "Prada_sunglasses",
+        description:
+          "Prada sunglasses blend innovative design with sophisticated Italian craftsmanship.They offer bold style and exceptional comfort for a modern, luxurious look.",
+        price: 2600,
+        categoryId: 1,
+        image: [
+          "https://i.ibb.co/v6TNNgxd/1.jpg",
+          "https://i.ibb.co/XkbGMbqR/2.jpg",
+          "https://i.ibb.co/4ny8Q4cv/3.jpg",
+          "https://i.ibb.co/R4hyYL0W/4.jpg",
+          "https://i.ibb.co/tp98F9d9/5.jpg",
+          "https://i.ibb.co/sdLg3b6M/6.jpg",
+          "https://i.ibb.co/MxyYn82K/7.jpg",
+        ],
+      },
+      {
+        name: "Rayban sunglasses",
+        slug: "Rayban_sunglasses",
+        description:
+          "Ray-Ban sunglasses deliver classic, iconic style paired with reliable UV protection.Built for everyday wear, they offer timeless appeal and lasting comfort.",
+        price: 2600,
+        categoryId: 1,
+        image: [
+          "https://i.ibb.co/ycBgvkLX/1.jpg",
+          "https://i.ibb.co/XZCLFQcm/2.jpg",
+          "https://i.ibb.co/Mx4xJRbc/3.jpg",
+          "https://i.ibb.co/ZnbDwp1/5.jpg",
+          "https://i.ibb.co/B2N6qgRm/6.jpg",
+        ],
+      },
+      {
+        name: "Ray-Ban Tech",
+        slug: "Ray-Ban_Tech_sunglasses",
+        description:
+          "Ray-Ban Tech combines iconic style with cutting-edge technology for enhanced performance.Featuring advanced lenses and lightweight frames, they deliver superior clarity and comfort.",
+        price: 2600,
+        categoryId: 1,
+        image: [
+          "https://i.ibb.co/wN8zS45C/1.jpg",
+          "https://i.ibb.co/4gVSGWvN/2.jpg",
+          "https://i.ibb.co/sd3TwY3k/3.jpg",
+          "https://i.ibb.co/9HM5Skh4/6.jpg",
+        ],
+      },
+      {
+        name: "Versace sunglasses",
+        slug: "Versace_sunglasses",
+        description:
+          "Versace sunglasses fuse bold Italian glamour with striking, luxurious designs.Perfect for those who want to make a powerful, fashion-forward statement.",
+        price: 2600,
+        categoryId: 1,
+        image: [
+          "https://i.ibb.co/3yGhSpdh/1.jpg",
+          "https://i.ibb.co/mFhFZXw4/2.jpg",
+          "https://i.ibb.co/zWs7KfWc/3.jpg",
         ],
       },
     ],
