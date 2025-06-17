@@ -3,15 +3,12 @@ import Image from "next/image";
 import React, { useState } from "react";
 
 interface iAppProps {
-  images: { url: string; alt: string }[]; // single string url, not array
+  images: { url: string; alt: string }[];
+  selectedImage: { url: string; alt: string };
+  onSelectImage: (image: { url: string; alt: string }) => void;
 }
 
-const ImageGallery = ({ images }: iAppProps) => {
-  const [bigImage, setBigImage] = useState(images[0]);
-
-  const handleSmallImageClick = (image: any) => {
-    setBigImage(image);
-  };
+const ImageGallery = ({ images, selectedImage, onSelectImage }: iAppProps) => {
   return (
     <div className="grid gap-4 lg:grid-cols-5">
       <div className="order-last flex gap-4 lg:order-none lg:flex-col">
@@ -22,16 +19,17 @@ const ImageGallery = ({ images }: iAppProps) => {
               width={200}
               height={200}
               alt={image.alt}
-              className="h-full w-full object-cover object-center  cursor-pointer"
-              onClick={() => handleSmallImageClick(image)}
+              className="h-full w-full object-cover object-center cursor-pointer"
+              onClick={() => onSelectImage(image)} // 💡 select new image
             />
           </div>
         ))}
       </div>
+
       <div className="relative overflow-hidden rounded-lg bg-gray-100 lg:col-span-4">
         <Image
-          src={bigImage.url}
-          alt="photo"
+          src={selectedImage.url}
+          alt={selectedImage.alt}
           width={500}
           height={500}
           className="h-full w-full object-cover object"
@@ -43,5 +41,4 @@ const ImageGallery = ({ images }: iAppProps) => {
     </div>
   );
 };
-
 export default ImageGallery;
