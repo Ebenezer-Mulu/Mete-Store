@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import {
   Sheet,
   SheetContent,
@@ -24,7 +24,10 @@ const ShoppingCartModal = () => {
     total,
   } = useCart();
 
-  const handleShare = async () => {
+  const [shareLink, setShareLink] = useState("");
+  const [copied, setCopied] = useState(false);
+
+  const handleLink = async () => {
     if (!cartDetails || cartDetails.length === 0) {
       alert("Cart is empty");
       return;
@@ -38,12 +41,10 @@ const ShoppingCartModal = () => {
       body: JSON.stringify({ cartDetails }),
     });
 
-    const result = await res.json();
-
-    if (!res.ok) {
-      alert("❌ Failed to share: " + result.error);
-    } else {
-      alert("✅ Cart link sent to Telegram!");
+    const data = await res.json();
+    if (res.ok && data.link) {
+      setShareLink(data.link);
+      setCopied(false);
     }
   };
 
@@ -53,14 +54,11 @@ const ShoppingCartModal = () => {
         <SheetHeader className="flex flex-row justify-between items-center">
           <SheetTitle>Shopping Cart</SheetTitle>
           <div className="flex items-center space-x-4">
-            {/* Tooltip Wrapper */}
             <div className="relative group">
               <Share2
-                className="mr-8 w-4 h-4 text-gray-600 cursor-pointer "
-                onClick={handleShare}
+                className="mr-8 w-4 h-4 text-gray-600 cursor-pointer"
+                onClick={handleLink}
               />
-
-              {/* Tooltip */}
               <div className="absolute mt-5 mr-12 -top-8 left-1/2 -translate-x-1/2 scale-0 group-hover:scale-100 transition-transform bg-black text-white text-xs px-2 py-1 rounded-md whitespace-nowrap z-10">
                 Share
               </div>
@@ -72,7 +70,6 @@ const ShoppingCartModal = () => {
           id="cart-content"
           className="flex flex-col h-[calc(100vh-5rem)] cart-content"
         >
-          {" "}
           <div className="flex-1 overflow-y-auto mt-4">
             <ul className="divide-y divide-gray-200 px-2">
               {cartCount === 0 ? (
@@ -107,7 +104,6 @@ const ShoppingCartModal = () => {
                               <Minus
                                 className="w-6 h-6 p-1 rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200 cursor-pointer transition"
                                 onClick={() =>
-                                  entry.quantity > 1 &&
                                   updateItemQuantity(
                                     entry.id,
                                     entry.quantity - 1
@@ -143,7 +139,32 @@ const ShoppingCartModal = () => {
               )}
             </ul>
           </div>
-          {/* Fixed footer */}
+          {shareLink && (
+            <div className="absolute top-10 left-1/2 -translate-x-1/2 mt-2 w-64 bg-white border p-2 rounded shadow z-20">
+              <input
+                type="text"
+                value={shareLink}
+                readOnly
+                className="w-full text-sm px-2 py-1 border rounded mb-2"
+              />
+              <button
+                onClick={() => {
+                  navigator.clipboard.writeText(shareLink);
+                  setCopied(true);
+
+                  // Hide the share link after 2 seconds
+                  setTimeout(() => {
+                    setShareLink("");
+                    setCopied(false);
+                  }, 2000);
+                }}
+                className="text-xs text-purple-700 hover:text-purple-900"
+              >
+                {copied ? "Copied!" : "Copy Link"}
+              </button>
+            </div>
+          )}
+          {/* Footer */}
           <div className="border-t border-gray-200 px-4 py-2 sm:px-2 ">
             <div className="flex justify-between text-base font-medium text-gray-900">
               <p>Subtotal</p>
@@ -154,14 +175,13 @@ const ShoppingCartModal = () => {
             </p>
             <div className="mt-2">
               <Button
-        
                 onClick={() => toggleCart(false)}
                 className="w-full bg-purple-700 hover:text-purple-100"
               >
                 <Link href="/checkout">Checkout</Link>
               </Button>
             </div>
-            <div className=" flex justify-center text-center text-sm text-gray-500">
+            <div className="flex justify-center text-center text-sm text-gray-500">
               <p>
                 <strong>OR </strong>
                 <button

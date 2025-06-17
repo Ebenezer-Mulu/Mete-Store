@@ -20,18 +20,53 @@ const PaymentModal: React.FC<PaymentMethodProps> = ({ onClose, selected }) => {
   const { cartDetails } = useCart();
   const { total } = useCart();
 
-  const handleConfirm = () => {
+  const handleConfirm = async () => {
+    if (!cartDetails || cartDetails.length === 0) {
+      alert("Cart is empty");
+      return;
+    }
+
+    const res = await fetch("/api/shared-cart", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ cartDetails }),
+    });
+
+    const result = await res.json();
+
+    if (!res.ok) {
+      alert("❌ Failed to share: " + result.error);
+    }
+
     if (!transactionNumber) {
       alert("Please enter the transaction number.");
       return;
     }
-    console.log(
-      "Submitted Transaction:",
-      transactionNumber,
-      "for",
-      selected.accountName
-    );
-    onClose();
+
+    try {
+      const response = await fetch("/api/sendPayment", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          transactionNumber,
+          total,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        alert("❌ Telegram Error: " + result.error);
+      } else {
+        alert("✅Done");
+        onClose();
+      }
+    } catch (error) {
+      console.error("Client-side error:", error);
+      alert("❌ Something went wrong. Check console.");
+    }
   };
 
   return (
