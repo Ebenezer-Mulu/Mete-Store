@@ -370,7 +370,7 @@ async function main() {
       },
       {
         name: "Dita sunglasses",
-        slug: "Dita sunglasses",
+        slug: "Dita-sunglasses",
         description:
           "Dita sunglasses embody precision, luxury, and bold craftsmanship with every frame.Designed for those who appreciate detail, durability, and elevated style.",
         price: 2400,
@@ -518,6 +518,61 @@ async function main() {
           "https://i.ibb.co/zWs7KfWc/3.jpg",
         ],
       },
+      {
+        name: "Rolex watch",
+        slug: "Rolex-watch-Golden",
+        description:
+          "A timeless Rolex watch in a luxurious golden finish, combining precision craftsmanship with elegant design.Perfect for making a bold statement and elevating any style, from formal to casual",
+        price: 2200,
+        categoryId: 2,
+        image: [
+          "https://ibb.co/RpmMK57P",
+          "https://ibb.co/Q3v1067y",
+          "https://ibb.co/bRKW2whW",
+          "https://ibb.co/XxPn1Nsj",
+          "https://ibb.co/5WLZSHXp",
+          "https://ibb.co/Z1GZs0r1",
+          "https://ibb.co/h1MvLMrf",
+          "https://ibb.co/7dSJLPHV",
+        ],
+      },
+      {
+        name: "Rolex watch",
+        slug: "Rolex-watch-Silver",
+        description:
+          "A sleek Rolex watch in a polished silver finish, offering a blend of precision and modern sophistication.Ideal for those who value timeless style and effortless elegance every day.",
+        price: 2200,
+        categoryId: 2,
+        image: [
+          "https://ibb.co/HDMFXpWp",
+          "https://ibb.co/NgH6WDsG",
+          "https://ibb.co/ZQk8bWG",
+          "https://ibb.co/Rks93jZB",
+          "https://ibb.co/XZMwhYGH",
+          "https://ibb.co/0p1t10tk",
+          "https://ibb.co/pvKmBsr6",
+          "https://ibb.co/ynbvnDjC",
+          "https://ibb.co/MkJMNy4w",
+        ],
+      },
+      {
+        name: "Rolex watch",
+        slug: "Rolex-watch-stripe",
+        description:
+          "A classic Rolex watch in sleek silver, enhanced by a distinctive stripe for a bold, modern flair.Perfect for those who seek timeless craftsmanship with a unique, eye‑catching detail.",
+        price: 2200,
+        categoryId: 2,
+        image: [
+          "https://ibb.co/xt3CtQsH",
+          "https://ibb.co/bMRjJKRh",
+          "https://ibb.co/nNcrsG3w",
+          "https://ibb.co/PZ4Msy3j",
+          "https://ibb.co/fVNJ2rp9",
+          "https://ibb.co/Z6KqwbNW",
+          "https://ibb.co/60fyRSYM",
+          "https://ibb.co/LdNcg4pK",
+        ],
+      },
     ],
     skipDuplicates: true,
   });
@@ -533,3 +588,5 @@ main()
   .finally(async () => {
     await prisma.$disconnect();
   });
+
+//npx ts-node prisma/seed.ts

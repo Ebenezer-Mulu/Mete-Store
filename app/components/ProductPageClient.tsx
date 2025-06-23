@@ -6,7 +6,7 @@ import { Button } from "@/components/components/ui/button";
 import { Star, Truck } from "lucide-react";
 import AddToBag from "app/components/addToBag";
 
-interface ProductPageClientProps {
+export interface ProductPageClientProps {
   product: {
     id: number;
     slug: string;
