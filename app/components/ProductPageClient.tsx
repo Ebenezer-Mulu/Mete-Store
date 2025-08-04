@@ -69,7 +69,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
               <span className="text-sm text-gray-500">Inclusive Shipping</span>
             </div>
 
-            <div className="mb-6 flex items-center gap-2 text-gray-500">
+             <div className="mb-6 flex items-center gap-2 text-gray-500">
               <Truck />
               <span className="text-sm">15 days shipping</span>
             </div>

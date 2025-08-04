@@ -11,14 +11,9 @@ export const metadata = {
   description: "Stylish Accessories for Everyone!",
 };
 
-const roboto = Roboto({
-  weight: "400",
-  subsets: ["latin"],
-});
-
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={roboto.className}>
+    <html lang="en">
       <head>
         {/* ✅ GA Scripts */}
         <Script

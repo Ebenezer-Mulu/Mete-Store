@@ -20,7 +20,7 @@ const ImageGallery = ({ images, selectedImage, onSelectImage }: iAppProps) => {
               height={200}
               alt={image.alt}
               className="h-full w-full object-cover object-center cursor-pointer"
-              onClick={() => onSelectImage(image)} // 💡 select new image
+              onClick={() => onSelectImage(image)} 
             />
           </div>
         ))}

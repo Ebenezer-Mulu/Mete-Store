@@ -1,108 +1,34 @@
- import { PrismaClient } from "@prisma/client";
- import { NextRequest } from "next/server";
-
-// const prisma = new PrismaClient();
-
-// // Helper function to generate slug
-// function generateSlug(name: string) {
-//   return name
-//     .toLowerCase()
-//     .replace(/[^a-z0-9\s-]/g, "")
-//     .trim()
-//     .replace(/\s+/g, "-");
-// }
-
-// // POST: Create a new product
-// export async function POST(request: Request) {
-//   const body = await request.json();
-
-//   try {
-//     const slug = generateSlug(body.name);
-//     const images = Array.isArray(body.image) ? body.image : [body.image];
-
-//     const newProduct = await prisma.product.create({
-//       data: {
-//         name: body.name,
-//         slug,
-//         description: body.description,
-//         image: images,
-//         price: body.price,
-//         createdAt: new Date(),
-//         categoryId: body.categoryId,
-//       },
-//     });
-
-//     return new Response(JSON.stringify(newProduct), {
-//       headers: { "Content-Type": "application/json" },
-//       status: 201,
-//     });
-//   } catch (error) {
-//     console.error("Error creating product:", error);
-//     return new Response(JSON.stringify({ error: "Failed to create product" }), {
-//       headers: { "Content-Type": "application/json" },
-//       status: 500,
-//     });
-//   }
-// }
-
-
+import { PrismaClient } from "@prisma/client";
+import { NextRequest, NextResponse } from "next/server";
 import { sql } from "@vercel/postgres";
 
-// Helper function to generate slug
-function generateSlug(name: string) {
-  return name
-    .toLowerCase()
-    .replace(/[^a-z0-9\s-]/g, "")
-    .trim()
-    .replace(/\s+/g, "-");
-}
+import prisma from "../../lib/prisma";
 
-// POST: Create a new product
-export async function POST(request: Request) {
-  const body = await request.json();
-
+export async function POST(req: Request) {
   try {
-    const slug = generateSlug(body.name);
-    const images = Array.isArray(body.image) ? body.image : [body.image];
+    const body = await req.json();
 
-    const result = await sql`
-      INSERT INTO product (
-        name,
-        slug,
-        description,
-        image,
-        price,
-        created_at,
-        category_id
-      )
-      VALUES (
-        ${body.name},
-        ${slug},
-        ${body.description},
-        ${JSON.stringify(images)},
-        ${body.price},
-        NOW(),
-        ${body.categoryId}
-      )
-      RETURNING *;
-    `;
-
-    return new Response(JSON.stringify(result.rows[0]), {
-      headers: { "Content-Type": "application/json" },
-      status: 201,
+    const product = await prisma.product.create({
+      data: {
+        name: body.name,
+        slug: body.slug,
+        description: body.description,
+        price: body.price,
+        status: body.status,
+        image: body.image, // array of strings
+        categoryId: parseInt(body.categoryId),
+      },
     });
+
+    return NextResponse.json(product, { status: 201 });
   } catch (error) {
     console.error("Error creating product:", error);
-    return new Response(JSON.stringify({ error: "Failed to create product" }), {
-      headers: { "Content-Type": "application/json" },
-      status: 500,
-    });
+    return NextResponse.json(
+      { error: "Failed to create product" },
+      { status: 500 }
+    );
   }
 }
-
-
-
-
 
 export async function GET(
   req: NextRequest,
@@ -125,10 +51,6 @@ export async function GET(
     return new Response("Failed to fetch products", { status: 500 });
   }
 }
-
-
-
-
 
 // CREATE TABLE product (
 //   id SERIAL PRIMARY KEY,
