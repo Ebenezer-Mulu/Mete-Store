@@ -4,6 +4,7 @@ const nextConfig = {
     DATABASE_URL: process.env.DATABASE_URL,
   },
   reactStrictMode: true,
+
   images: {
     remotePatterns: [
       {
@@ -13,6 +14,10 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "ibb.co",
+      },
+      {
+        protocol: "https",
+        hostname: "res.cloudinary.com", // ✅ Added Cloudinary
       },
     ],
   },

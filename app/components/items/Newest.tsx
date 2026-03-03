@@ -28,11 +28,12 @@ export default async function Newest() {
               <Link href={`/product/${product.slug}`} passHref>
                 <div className="aspect-square w-full overflow-hidden rounded-md bg-gray-200 shadow-sm group-hover:opacity-75 lg:h-80">
                   <Image
-                    src={product.image[0]}
+                    src={product.image?.[0] || "/placeholder.png"}
                     alt={product.name}
-                    className="w-full h-full object-cover object-center lg:h-full lg:w-full"
+                    className="w-full h-full object-cover object-center"
                     width={500}
                     height={500}
+                    priority
                   />
                 </div>
                 <div className="mt-4 flex flex-col ml-2 gap-2 justify-between">
@@ -42,7 +43,7 @@ export default async function Newest() {
                     </h3>
                   </div>
                   <p className="text-sm font-bold text-gray-900 ">
-                   ETB {product.price} Birr
+                    ETB {product.price} Birr
                   </p>
                 </div>
               </Link>

@@ -17,7 +17,7 @@ const ProductsByCategory = async () => {
       });
 
       return { category, products };
-    })
+    }),
   );
 
   return (
@@ -36,11 +36,12 @@ const ProductsByCategory = async () => {
                   <Link href={`/product/${product.slug}`} passHref>
                     <div className="aspect-square w-full shadow-sm overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75 lg:h-80">
                       <Image
-                        src={product.image[0]}
+                        src={product.image?.[0] || "/placeholder.png"}
                         alt={product.name}
                         className="w-full h-full object-cover object-center"
                         width={500}
                         height={500}
+                        priority
                       />
                     </div>
                     <div className="mt-4 flex flex-col ml-2 gap-2 justify-between">

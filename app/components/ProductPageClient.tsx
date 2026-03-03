@@ -22,10 +22,14 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
   const rating = Math.round((Math.random() * (4.9 - 4.3) + 4.3) * 10) / 10;
   const numberOfRater = Math.floor(Math.random() * 41) + 60;
 
-  const images = Array.isArray(product.image) ? product.image : [product.image];
+  const images = (
+    Array.isArray(product.image) ? product.image : [product.image]
+  ).filter(Boolean);
   const formattedImages = images.map((url) => ({ url, alt: product.name }));
 
-  const [selectedImage, setSelectedImage] = useState(formattedImages[0]);
+  const [selectedImage, setSelectedImage] = useState(
+    formattedImages.length > 0 ? formattedImages[0] : { url: "", alt: "" },
+  );
 
   return (
     <div className="bg-white mt-32">
@@ -69,7 +73,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
               <span className="text-sm text-gray-500">Inclusive Shipping</span>
             </div>
 
-             <div className="mb-6 flex items-center gap-2 text-gray-500">
+            <div className="mb-6 flex items-center gap-2 text-gray-500">
               <Truck />
               <span className="text-sm">15 days shipping</span>
             </div>

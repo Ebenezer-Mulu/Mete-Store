@@ -1,4 +1,4 @@
-// file: app/product/[slug]/page.tsx
+
 import { notFound } from "next/navigation";
 import prisma from "app/lib/prisma";
 import ProductPageClient, {

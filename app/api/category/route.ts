@@ -1,72 +1,59 @@
-import { sql } from "@vercel/postgres";
+import prisma from "app/lib/prisma";
+import { NextResponse } from "next/server";
 
-export async function POST(request: Request) {
-  const body = await request.json();
-
+export async function GET() {
   try {
-    const result = await sql`
-      INSERT INTO category (name)
-      VALUES (${body.name})
-      RETURNING *;
-    `;
-
-    return new Response(JSON.stringify(result.rows[0]), {
-      headers: {
-        "Content-Type": "application/json",
-      },
-      status: 201,
+    const categories = await prisma.category.findMany({
+      orderBy: { id: "asc" },
     });
+
+    return NextResponse.json(categories);
   } catch (error) {
-    console.error("Error creating category:", error);
-    return new Response(
-      JSON.stringify({ error: "Failed to create category" }),
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        status: 500,
-      }
+    console.error(error);
+    return NextResponse.json(
+      { error: "Failed to fetch categories" },
+      { status: 500 }
     );
   }
 }
 
-// CREATE TABLE category (
-//   id SERIAL PRIMARY KEY,
-//   name TEXT NOT NULL
-// );
+export async function POST(req: Request) {
+  try {
+    const formData = await req.formData();
+    const name = formData.get("name") as string;
 
+    if (!name) {
+      return NextResponse.json(
+        { error: "Name is required" },
+        { status: 400 }
+      );
+    }
 
+    const categoryName = name.trim();
 
-// import { PrismaClient } from "@prisma/client";
+    const exists = await prisma.category.findUnique({
+      where: { name: categoryName },
+    });
 
-// const prisma = new PrismaClient();
+    if (exists) {
+      return NextResponse.json(
+        { error: "Category already exists" },
+        { status: 400 }
+      );
+    }
 
-// export async function POST(request: Request) {
-//   const body = await request.json();
+    await prisma.category.create({
+      data: { name: categoryName },
+    });
 
-//   try {
-//     const newCategory = await prisma.category.create({
-//       data: {
-//         name: body.name,
-//       },
-//     });
+    return NextResponse.json({ success: true });
 
-//     return new Response(JSON.stringify(newCategory), {
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       status: 201,
-//     });
-//   } catch (error) {
-//     console.error("Error creating category:", error);
-//     return new Response(
-//       JSON.stringify({ error: "Failed to create category" }),
-//       {
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//         status: 500,
-//       }
-//     );
-//   }
-// }
+  } catch (error) {
+    console.error(error);
+
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 }
+    );
+  }
+}

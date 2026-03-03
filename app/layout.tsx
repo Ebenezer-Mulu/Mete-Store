@@ -1,9 +1,9 @@
 import "./globals.css";
 import NavBar from "./components/navbar";
-import Footer from "./components/footer";
+import Footer from "../footer";
 import { CartProvider } from "context/cartContext";
 import ShoppingCartModal from "./components/shoppingCartModal";
-import { Roboto } from "next/font/google";
+import { Analytics } from "@vercel/analytics/react";
 import Script from "next/script";
 
 export const metadata = {
@@ -11,32 +11,37 @@ export const metadata = {
   description: "Stylish Accessories for Everyone!",
 };
 
-export default function RootLayout({ children }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="en">
-      <head>
-        {/* ✅ GA Scripts */}
+      <body>
+        {/* ✅ Google Analytics */}
         <Script
-          src={`https://www.googletagmanager.com/gtag/js?id=G-QTF7XN47H8`}
+          src="https://www.googletagmanager.com/gtag/js?id=G-QTF7XN47H8"
           strategy="afterInteractive"
         />
-        <Script id="ga-setup" strategy="afterInteractive">
+        <Script id="google-analytics" strategy="afterInteractive">
           {`
             window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments)}
+            function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-
-            gtag('config', 'G-QTF7XN47H8'); 
+            gtag('config', 'G-QTF7XN47H8');
           `}
         </Script>
-      </head>
-      <body>
+
         <CartProvider>
           <NavBar />
           <ShoppingCartModal />
           {children}
           <Footer />
         </CartProvider>
+
+       
+        <Analytics />
       </body>
     </html>
   );
