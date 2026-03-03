@@ -5,7 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import "../globals.css";
 import { Button } from "@/components/components/ui/button";
-import { ShoppingBag, Menu, LogOut } from "lucide-react";
+import { ShoppingBag, Menu, LogOut, LogIn } from "lucide-react";
 import { useCart } from "../../hooks/useCart";
 import {
   Drawer,
@@ -141,7 +141,7 @@ export default function NavBar() {
           {/* LOGIN */}
           {!isLoggedIn && (
             <Button variant="outline" onClick={() => router.push("/login")}>
-              Login
+              <LogIn />
             </Button>
           )}
 
