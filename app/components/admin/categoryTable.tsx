@@ -18,22 +18,23 @@ export default function CategoryTable({ categories, onEdit }: any) {
           {categories.map((category: any) => (
             <tr key={category.id} className="border-t">
               <td className="p-3">{category.name}</td>
-              
 
-              <td className="p-3 space-x-2">
-                <button
-                  onClick={() => onEdit(category)}
-                  className="bg-blue-500 text-white px-3 py-1 rounded"
-                >
-                  Edit
-                </button>
+              <td className="py-4 px-4 align-middle">
+                <div className="flex flex-col gap-3 items-center justify-center">
+                  <button
+                    onClick={() => onEdit(category)}
+                    className="bg-blue-500 text-white px-3 py-1 rounded"
+                  >
+                    Edit
+                  </button>
 
-                <button
-                  onClick={() => deleteCategory(category.id)}
-                  className="bg-red-500 text-white px-3 py-1 rounded"
-                >
-                  Delete
-                </button>
+                  <button
+                    onClick={() => deleteCategory(category.id)}
+                    className="bg-red-500 text-white px-3 py-1 rounded"
+                  >
+                    Delete
+                  </button>
+                </div>
               </td>
             </tr>
           ))}
