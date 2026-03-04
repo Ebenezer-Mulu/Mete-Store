@@ -1,5 +1,6 @@
 "use client";
 
+import { revalidatePath } from "next/cache";
 import { useState, useEffect } from "react";
 
 export default function ProductForm({ product, onClose, onSuccess }) {
@@ -102,6 +103,8 @@ export default function ProductForm({ product, onClose, onSuccess }) {
       console.error(error);
       alert("Error saving product");
     }
+    revalidatePath("/");
+    revalidatePath("/category");
   };
 
   return (

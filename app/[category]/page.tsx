@@ -16,23 +16,38 @@ import {
 } from "@/components/components/ui/pagination";
 
 export default function ProductList() {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState<any[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [productsPerPage, setProductsPerPage] = useState(10); // Default mobile
+  const [productsPerPage, setProductsPerPage] = useState(10);
+
   const pathname = usePathname();
   const category = pathname.split("/").pop();
 
-  // Fetch products
+  // ✅ Fetch products
   useEffect(() => {
     async function fetchProducts() {
-      const res = await fetch(`/api/product/${category}`);
-      const data = await res.json();
-      setProducts(data);
+      if (!category) return;
+
+      try {
+        const res = await fetch(`/api/product/${category}`, {
+          cache: "no-store",
+          next: { revalidate: 0 },
+        });
+
+        const data = await res.json();
+
+        // ✅ Ensure array response
+        setProducts(Array.isArray(data) ? data : []);
+      } catch (error) {
+        console.error("Fetch error:", error);
+        setProducts([]);
+      }
     }
-    if (category) fetchProducts();
+
+    fetchProducts();
   }, [category]);
 
-  // Responsive product count per page
+  // ✅ Responsive pagination count
   useEffect(() => {
     const updateProductsPerPage = () => {
       if (window.innerWidth >= 1024) {
@@ -48,12 +63,16 @@ export default function ProductList() {
     return () => window.removeEventListener("resize", updateProductsPerPage);
   }, []);
 
-  const totalPages = Math.ceil(products.length / productsPerPage);
+  // ✅ Safe pagination calculation
+  const totalPages = products.length
+    ? Math.ceil(products.length / productsPerPage)
+    : 1;
+
   const startIndex = (currentPage - 1) * productsPerPage;
-  const paginatedProducts = products.slice(
-    startIndex,
-    startIndex + productsPerPage
-  );
+
+  const paginatedProducts = products.length
+    ? products.slice(startIndex, startIndex + productsPerPage)
+    : [];
 
   const goToPage = (page: number) => {
     if (page >= 1 && page <= totalPages) {
@@ -68,23 +87,29 @@ export default function ProductList() {
           Products for {category}
         </h2>
 
+        {paginatedProducts.length === 0 && (
+          <p className="text-gray-500">No products found.</p>
+        )}
+
         <div className="grid grid-cols-2 gap-x-4 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-6">
           {paginatedProducts.map((product: any) => (
             <div key={product.id} className="group relative">
               <Link href={`/product/${product.slug}`}>
                 <div className="aspect-square w-full shadow-sm overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75 lg:h-80">
                   <Image
-                    src={product.image[0]}
+                    src={product.image?.[0] || "/placeholder.png"}
                     alt={product.name}
                     className="w-full h-full object-cover object-center"
                     width={500}
                     height={500}
                   />
                 </div>
-                <div className="mt-4 flex flex-col ml-2 gap-2 justify-between">
+
+                <div className="mt-4 flex flex-col ml-2 gap-2">
                   <h3 className="text-sm text-gray-400">
-                    {product.name.split(" ").slice(0, 3).join(" ")}
+                    {product.name?.split(" ").slice(0, 3).join(" ")}
                   </h3>
+
                   <p className="text-sm font-bold text-gray-900">
                     ETB {product.price} Birr
                   </p>
@@ -109,10 +134,12 @@ export default function ProductList() {
 
               {Array.from({ length: totalPages }).map((_, index) => {
                 const page = index + 1;
+
                 const isVisible =
                   Math.abs(currentPage - page) <= 2 ||
                   page === 1 ||
                   page === totalPages;
+
                 if (!isVisible && page !== 2 && page !== totalPages - 1) {
                   if (index === 1 || index === totalPages - 2) {
                     return (
@@ -123,6 +150,7 @@ export default function ProductList() {
                   }
                   return null;
                 }
+
                 return (
                   <PaginationItem key={page}>
                     <PaginationLink

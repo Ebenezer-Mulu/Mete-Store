@@ -1,6 +1,8 @@
 import prisma from "app/lib/prisma";
 import { NextResponse } from "next/server";
 
+export const dynamic = "force-dynamic";
+
 export async function GET() {
   try {
     const categories = await prisma.category.findMany({
@@ -12,7 +14,7 @@ export async function GET() {
     console.error(error);
     return NextResponse.json(
       { error: "Failed to fetch categories" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
@@ -23,10 +25,7 @@ export async function POST(req: Request) {
     const name = formData.get("name") as string;
 
     if (!name) {
-      return NextResponse.json(
-        { error: "Name is required" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Name is required" }, { status: 400 });
     }
 
     const categoryName = name.trim();
@@ -38,7 +37,7 @@ export async function POST(req: Request) {
     if (exists) {
       return NextResponse.json(
         { error: "Category already exists" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -47,13 +46,12 @@ export async function POST(req: Request) {
     });
 
     return NextResponse.json({ success: true });
-
   } catch (error) {
     console.error(error);
 
     return NextResponse.json(
       { error: "Internal server error" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
