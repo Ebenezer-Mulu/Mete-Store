@@ -34,10 +34,9 @@ export default function NavBar() {
       .catch(console.error);
   }, []);
 
-  // Auth check
+  // Check login
   useEffect(() => {
     const cookies = document.cookie;
-
     const auth = cookies.includes("auth");
     setIsLoggedIn(auth);
   }, [pathname]);
@@ -52,20 +51,20 @@ export default function NavBar() {
     window.location.reload();
   };
 
-  // Cart click logic
-  const handleCartRedirect = () => {
+  // Cart click
+  const handleCartOpen = () => {
     if (!isLoggedIn) {
       router.push("/login");
       return;
     }
 
-    router.push("/cart");
+    handleCartClick();
   };
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white shadow-sm">
       <div className="relative flex items-center justify-between mx-auto max-w-7xl px-4 h-16">
-        {/* LEFT DRAWER */}
+        {/* LEFT MENU */}
         <Drawer direction="left">
           <DrawerTrigger asChild>
             <Button variant="ghost" size="icon">
@@ -92,7 +91,6 @@ export default function NavBar() {
               </DrawerDescription>
             </DrawerHeader>
 
-            {/* NAV LINKS */}
             <div className="flex-1 overflow-y-auto px-4 py-2">
               <nav className="flex flex-col gap-4">
                 <DrawerClose asChild>
@@ -127,7 +125,7 @@ export default function NavBar() {
           </DrawerContent>
         </Drawer>
 
-        {/* CENTER LOGO */}
+        {/* LOGO */}
         <div className="absolute left-1/2 transform -translate-x-1/2">
           <Link href="/">
             <h1 className="text-2xl font-bold">
@@ -138,37 +136,31 @@ export default function NavBar() {
 
         {/* RIGHT BUTTONS */}
         <div className="flex items-center gap-3">
-          {/* LOGIN */}
           {!isLoggedIn && (
             <Button variant="outline" onClick={() => router.push("/login")}>
               <LogIn />
+              <span className="hidden sm:block text-xs font-semibold text-gray-500">
+                LOGIN
+              </span>
             </Button>
           )}
 
-          {/* CART ALWAYS VISIBLE */}
           <Button
             variant="outline"
-            onClick={handleCartRedirect}
+            onClick={handleCartOpen}
             className="flex items-center gap-2"
           >
             <ShoppingBag />
-
             <span className="hidden sm:block text-xs font-semibold text-gray-500">
               Cart
             </span>
           </Button>
 
-          {/* LOGOUT */}
           {isLoggedIn && (
-            <Button
-              variant="outline"
-              onClick={handleLogout}
-              className="flex items-center gap-2"
-            >
+            <Button variant="outline" onClick={handleLogout}>
               <LogOut />
-
               <span className="hidden sm:block text-xs font-semibold text-gray-500">
-                Logout
+                LOGOUT
               </span>
             </Button>
           )}

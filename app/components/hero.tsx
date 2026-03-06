@@ -99,7 +99,7 @@ export const Hero = () => {
     }, 3000);
 
     return () => clearInterval(interval);
-  }, [currentSlide]); // Restart timer on slide change
+  }, [currentSlide]);
 
   return (
     <section className="mx-auto max-w-7xl px-4 sm:pb-6 lg:px-7">
@@ -132,7 +132,7 @@ export const Hero = () => {
             {/* Text overlay */}
             <div className="absolute inset-0 flex items-end justify-center bg-opacity-40 rounded-lg p-4">
               <Link
-                href={`/pages/${item.text}`}
+                href={`/${item.text}`}
                 className="inline-block border-2 border-white text-white hover:bg-white hover:text-black px-6 py-2 rounded"
               >
                 View All
