@@ -51,9 +51,9 @@ export default function ProductList() {
   useEffect(() => {
     const updateProductsPerPage = () => {
       if (window.innerWidth >= 1024) {
-        setProductsPerPage(24);
+        setProductsPerPage(40);
       } else {
-        setProductsPerPage(20);
+        setProductsPerPage(32);
       }
     };
 
